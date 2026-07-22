@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapOG Browser — OG Image Generator</title>
+<meta name="description" content="Generate beautiful Open Graph images right in your browser. No signup, no API key. Instant preview, one-click download.">
+<meta property="og:title" content="SnapOG Browser — OG Image Generator">
+<meta property="og:description" content="Generate beautiful Open Graph images right in your browser. Instant preview, one-click download.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     SnapOG Browser — Design Token System
+     Brand: Carbon Terminal aesthetic (continuity with landing)
+     ═══════════════════════════════════════════════════════════════════ */
+
+  :root {
+    --bg: #09090B;
+    --bg-elevated: #131316;
+    --bg-hover: #1A1A1F;
+    --border: #252529;
+    --border-focus: #3A3A40;
+    --text: #E8E8ED;
+    --text-secondary: #A1A1AA;
+    --text-muted: #6B6B75;
+    --green: #4ADE80;
+    --green-dim: #166534;
+    --green-glow: rgba(74, 222, 128, 0.10);
+    --amber: #F59E0B;
+    --amber-dim: #78350F;
+    --amber-glow: rgba(245, 158, 11, 0.10);
+    --red: #EF4444;
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  /* ── Typography ─────────────────────────────────── */
+  h1, h2, h3 { font-family: var(--font-display); }
+  .mono { font-family: var(--font-mono); }
+
+  /* ── Navigation ─────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(9, 9, 11, 0.88);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1440px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+  }
+  .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+    color: var(--green); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-badge {
+    font-size: 0.7rem; background: var(--green-dim); color: var(--green);
+    padding: 0.15rem 0.55rem; border-radius: 100px; font-weight: 600;
+    letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .nav-right { display: flex; align-items: center; gap: 0.85rem; }
+  .nav-link {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-gh {
+    display: flex; align-items: center; gap: 0.35rem;
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.8rem; transition: color 0.15s;
+  }
+  .nav-gh:hover { color: var(--text); }
+  .nav-gh svg { width: 16px; height: 16px; }
+
+  /* ── Main Layout ────────────────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    min-height: calc(100vh - 52px - 60px); /* nav + footer */
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* ── Controls Panel ─────────────────────────────── */
+  .controls {
+    border-right: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 1.35rem;
+  }
+  .controls-header { margin-bottom: 0.25rem; }
+  .controls-header h2 {
+    font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em;
+    margin-bottom: 0.15rem;
+  }
+  .controls-header p { font-size: 0.8rem; color: var(--text-muted); }
+
+  .field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .field-label {
+    font-size: 0.78rem; font-weight: 600; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .field-label .optional { font-weight: 400; color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+  .field input, .field textarea, .field select {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    padding: 0.6rem 0.75rem; border-radius: var(--radius-sm);
+    color: var(--text); font-family: var(--font-body); font-size: 0.88rem;
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%; resize: vertical;
+  }
+  .field textarea { min-height: 56px; }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px var(--green-glow);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
+  .field select {
+    cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  /* ── Theme Toggle ───────────────────────────────── */
+  .theme-toggle {
+    display: flex; background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); overflow: hidden;
+  }
+  .theme-toggle button {
+    flex: 1; padding: 0.55rem 0.75rem; border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
+    background: transparent; color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+  .theme-toggle button.active {
+    background: var(--green-dim); color: var(--green); font-weight: 600;
+  }
+  .theme-toggle button:first-child { border-right: 1px solid var(--border); }
+
+  /* ── Actions ────────────────────────────────────── */
+  .actions { display: flex; flex-direction: column; gap: 0.6rem; margin-top: auto; padding-top: 0.5rem; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.7rem 1.2rem; border-radius: var(--radius-sm); font-weight: 600;
+    font-size: 0.9rem; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; border: none; font-family: inherit;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--amber); color: #1A1A1A;
+  }
+  .btn-primary:hover {
+    background: #FBBF24; box-shadow: 0 0 20px var(--amber-glow);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: var(--bg-elevated); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--bg-hover); border-color: var(--border-focus); }
+
+  /* ── Preview Panel ──────────────────────────────── */
+  .preview {
+    padding: 1.75rem;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 1rem;
+    background: radial-gradient(ellipse at 50% 40%, rgba(74,222,128,0.03) 0%, transparent 60%);
+  }
+  .preview-frame {
+    background: #1A1A1F;
+    border-radius: var(--radius-lg); overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(0,0,0,0.4), 0 4px 24px rgba(0,0,0,0.3);
+    width: 100%; max-width: 700px;
+    transition: box-shadow 0.3s;
+  }
+  .preview-frame:hover {
+    box-shadow: 0 0 80px rgba(0,0,0,0.5), 0 0 32px var(--green-glow), 0 4px 24px rgba(0,0,0,0.3);
+  }
+  .preview-chrome {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.5rem 0.75rem; background: #141417;
+    border-bottom: 1px solid var(--border);
+  }
+  .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .chrome-dot.r { background: #EF4444; } .chrome-dot.y { background: #F59E0B; } .chrome-dot.g { background: #4ADE80; }
+  .chrome-title {
+    flex: 1; text-align: center; font-size: 0.68rem; color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .preview-canvas-wrap {
+    line-height: 0;
+  }
+  .preview-canvas-wrap canvas {
+    width: 100%; height: auto; display: block;
+  }
+  .preview-info {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.5rem; font-size: 0.75rem; color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .preview-info span { color: var(--text-secondary); }
+
+  /* ── Empty State Overlay ────────────────────────── */
+  .preview-empty {
+    position: absolute; inset: 0; display: flex;
+    align-items: center; justify-content: center;
+    pointer-events: none;
+  }
+
+  /* ── Toast ──────────────────────────────────────── */
+  .toast {
+    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    background: var(--bg-elevated); border: 1px solid var(--green);
+    color: var(--green); padding: 0.65rem 1.25rem; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    z-index: 200; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .toast.show { opacity: 1; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border); padding: 1rem 1.5rem;
+    text-align: center; color: var(--text-muted); font-size: 0.78rem;
+    max-width: 1440px; margin: 0 auto;
+  }
+  footer a { color: var(--green); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── Focus ──────────────────────────────────────── */
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 3px; }
+
+  /* ── Responsive ─────────────────────────────────── */
+  @media (max-width: 900px) {
+    .main {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .controls {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1rem;
+      gap: 1rem;
+    }
+    .preview {
+      padding: 1.25rem 0.75rem;
+    }
+    .preview-frame { max-width: 100%; }
+    .field-row { grid-template-columns: 1fr; }
+    .nav-inner { padding: 0 1rem; }
+    .nav-badge { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="#" class="nav-logo">&gt; snapog</a>
+      <span class="nav-badge">Browser Tool</span>
+    </div>
+    <div class="nav-right">
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/" class="nav-link" target="_blank" rel="noopener">Home</a>
+      <a href="https://github.com/kaleemibnanwar" class="nav-gh" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Layout -->
+<div class="main">
+
+  <!-- Controls Panel -->
+  <aside class="controls">
+    <div class="controls-header">
+      <h2>Customize OG Image</h2>
+      <p>Fill in the fields — preview updates live.</p>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="title">Title <span class="optional">required</span></label>
+      <input type="text" id="title" placeholder="Your Product Name or Post Title" value="Introducing SnapOG Browser" maxlength="120" autofocus>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="description">Description <span class="optional">optional</span></label>
+      <textarea id="description" placeholder="A short, compelling description of your content" maxlength="200">Generate OG images right in your browser. No signup, no API key.</textarea>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label" for="domain">Domain</label>
+        <input type="text" id="domain" placeholder="yoursite.com" value="snapog.dev" maxlength="100">
+      </div>
+      <div class="field">
+        <label class="field-label" for="author">Author</label>
+        <input type="text" id="author" placeholder="@username" value="@snapog" maxlength="80">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label" for="tag">Tag / Category</label>
+        <input type="text" id="tag" placeholder="Launch" value="Tool" maxlength="40">
+      </div>
+      <div class="field">
+        <label class="field-label" for="template">Template</label>
+        <select id="template">
+          <option value="default">Default — Modern SaaS</option>
+          <option value="blog">Blog — Editorial</option>
+          <option value="article">Article — Minimal</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Theme</label>
+      <div class="theme-toggle" id="theme-toggle">
+        <button data-theme="dark" class="active">Dark</button>
+        <button data-theme="light">Light</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Watermark</label>
+      <div class="theme-toggle" id="watermark-toggle">
+        <button data-wm="1" class="active">SnapOG Badge</button>
+        <button data-wm="0">No Badge</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-download">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PNG (1200×630)
+      </button>
+      <button class="btn btn-secondary" id="btn-copy">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy to Clipboard
+      </button>
+    </div>
+  </aside>
+
+  <!-- Preview Panel -->
+  <section class="preview">
+    <div class="preview-frame">
+      <div class="preview-chrome">
+        <span class="chrome-dot r"></span>
+        <span class="chrome-dot y"></span>
+        <span class="chrome-dot g"></span>
+        <span class="chrome-title">OG Preview — 1200×630</span>
+      </div>
+      <div class="preview-canvas-wrap">
+        <canvas id="og-canvas" width="1200" height="630"></canvas>
+      </div>
+    </div>
+    <div class="preview-info">
+      <span>1200×630</span> · PNG · <span id="theme-label">Dark</span> · <span id="tpl-label">Default</span>
+    </div>
+  </section>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer>
+  SnapOG Browser &copy; 2026 — Generate OG images directly in your browser. No server needed.
+  &nbsp;·&nbsp; <a href="https://kaleemibnanwar.github.io/snapog-pages/">Landing Page</a>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SnapOG Canvas Rendering Engine
+     ═══════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── DOM refs ──────────────────────────────────────────────────────────
+const canvas = document.getElementById('og-canvas');
+const ctx = canvas.getContext('2d');
+
+const $title = document.getElementById('title');
+const $desc = document.getElementById('description');
+const $domain = document.getElementById('domain');
+const $author = document.getElementById('author');
+const $tag = document.getElementById('tag');
+const $template = document.getElementById('template');
+const $themeLabel = document.getElementById('theme-label');
+const $tplLabel = document.getElementById('tpl-label');
+const $toast = document.getElementById('toast');
+
+let theme = 'dark';
+let watermark = true;
+
+// ── Theme toggle ───────────────────────────────────────────────────────
+document.getElementById('theme-toggle').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#theme-toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  theme = btn.dataset.theme;
+  $themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+  render();
+});
+
+// ── Watermark toggle ───────────────────────────────────────────────────
+document.getElementById('watermark-toggle').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#watermark-toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  watermark = btn.dataset.wm === '1';
+  render();
+});
+
+// ── Input bindings ─────────────────────────────────────────────────────
+[$title, $desc, $domain, $author, $tag, $template].forEach(el => {
+  el.addEventListener('input', () => {
+    $tplLabel.textContent = $template.options[$template.selectedIndex].text.split(' ')[0];
+    render();
+  });
+});
+
+// ── Toast ──────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  $toast.textContent = msg;
+  $toast.classList.add('show');
+  toastTimer = setTimeout(() => $toast.classList.remove('show'), 2200);
+}
+
+// ── Download ───────────────────────────────────────────────────────────
+document.getElementById('btn-download').addEventListener('click', () => {
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const slug = ($title.value || 'og-image').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    a.href = url;
+    a.download = `${slug || 'og-image'}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('✓ Downloaded!');
+  }, 'image/png');
+});
+
+// ── Copy to clipboard ──────────────────────────────────────────────────
+document.getElementById('btn-copy').addEventListener('click', async () => {
+  try {
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    await navigator.clipboard.write([
+      new ClipboardItem({ 'image/png': blob })
+    ]);
+    showToast('✓ Copied to clipboard!');
+  } catch (err) {
+    // Fallback: copy as data URL if ClipboardItem not supported
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      await navigator.clipboard.writeText(dataUrl);
+      showToast('✓ Copied as data URL (image/png clipboard not supported)');
+    } catch (e2) {
+      showToast('✗ Failed to copy. Try Download instead.');
+    }
+  }
+});
+
+// ── Keyboard shortcut: Cmd/Ctrl+S to download ─────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+    e.preventDefault();
+    document.getElementById('btn-download').click();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════
+//  Rendering Engine
+// ═══════════════════════════════════════════════════════════════════════
+
+const W = 1200, H = 630;
+const PAD = 64; // safe padding
+
+// ── Color palettes per template + theme ────────────────────────────────
+const PALETTES = {
+  default: {
+    dark: {
+      bg: ['#1A1A2E', '#16213E', '#0F3460'],
+      bgAngle: 135,
+      domain: '#4ADE80',
+      title: '#FFFFFF',
+      desc: 'rgba(255,255,255,0.52)',
+      author: 'rgba(255,255,255,0.38)',
+      tagBg: 'rgba(74,222,128,0.12)',
+      tagText: '#4ADE80',
+      tagBorder: 'rgba(74,222,128,0.25)',
+      accent: 'rgba(74,222,128,0.06)',
+      divider: 'rgba(255,255,255,0.06)',
+    },
+    light: {
+      bg: ['#FAFAFA', '#F5F5F5', '#F0F0F0'],
+      bgAngle: 135,
+      domain: '#166534',
+      title: '#18181B',
+      desc: 'rgba(24,24,27,0.55)',
+      author: 'rgba(24,24,27,0.40)',
+      tagBg: 'rgba(22,101,52,0.08)',
+      tagText: '#166534',
+      tagBorder: 'rgba(22,101,52,0.18)',
+      accent: 'rgba(74,222,128,0.08)',
+      divider: 'rgba(0,0,0,0.06)',
+    }
+  },
+  blog: {
+    dark: {
+      bg: ['#1E1A16', '#2D2418', '#1A1208'],
+      bgAngle: 145,
+      domain: '#F59E0B',
+      title: '#FEF3C7',
+      desc: 'rgba(254,243,199,0.48)',
+      author: 'rgba(254,243,199,0.35)',
+      tagBg: 'rgba(245,158,11,0.12)',
+      tagText: '#FBBF24',
+      tagBorder: 'rgba(245,158,11,0.22)',
+      accent: 'rgba(245,158,11,0.05)',
+      divider: 'rgba(255,255,255,0.05)',
+    },
+    light: {
+      bg: ['#FFFBF5', '#FFF7ED', '#FFF3E4'],
+      bgAngle: 145,
+      domain: '#92400E',
+      title: '#1C1917',
+      desc: 'rgba(28,25,23,0.55)',
+      author: 'rgba(28,25,23,0.40)',
+      tagBg: 'rgba(146,64,14,0.08)',
+      tagText: '#92400E',
+      tagBorder: 'rgba(146,64,14,0.16)',
+      accent: 'rgba(245,158,11,0.06)',
+      divider: 'rgba(0,0,0,0.05)',
+    }
+  },
+  article: {
+    dark: {
+      bg: ['#0D1117', '#0D1117', '#161B22'],
+      bgAngle: 180,
+      domain: '#4ADE80',
+      title: '#E6EDF3',
+      desc: 'rgba(230,237,243,0.50)',
+      author: 'rgba(230,237,243,0.35)',
+      tagBg: 'rgba(74,222,128,0.10)',
+      tagText: '#4ADE80',
+      tagBorder: 'rgba(74,222,128,0.20)',
+      accent: 'rgba(74,222,128,0.12)',
+      divider: 'rgba(255,255,255,0.05)',
+    },
+    light: {
+      bg: ['#FFFFFF', '#FAFAFA', '#F5F5F5'],
+      bgAngle: 180,
+      domain: '#166534',
+      title: '#0D1117',
+      desc: 'rgba(13,17,23,0.55)',
+      author: 'rgba(13,17,23,0.40)',
+      tagBg: 'rgba(22,101,52,0.07)',
+      tagText: '#166534',
+      tagBorder: 'rgba(22,101,52,0.16)',
+      accent: 'rgba(74,222,128,0.06)',
+      divider: 'rgba(0,0,0,0.06)',
+    }
+  }
+};
+
+// ── Helper: draw rounded rect ──────────────────────────────────────────
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+}
+
+// ── Helper: draw gradient background ───────────────────────────────────
+function drawGradientBg(ctx, colors, angle) {
+  const rad = (angle - 90) * Math.PI / 180;
+  const x0 = W/2 - Math.cos(rad) * W;
+  const y0 = H/2 - Math.sin(rad) * H;
+  const x1 = W/2 + Math.cos(rad) * W;
+  const y1 = H/2 + Math.sin(rad) * H;
+  const grad = ctx.createLinearGradient(x0, y0, x1, y1);
+  grad.addColorStop(0, colors[0]);
+  grad.addColorStop(0.5, colors[1]);
+  grad.addColorStop(1, colors[2]);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+}
+
+// ── Helper: draw text with optional max width (truncation) ─────────────
+function drawText(ctx, text, x, y, maxWidth, font, fillStyle, align) {
+  ctx.font = font;
+  ctx.fillStyle = fillStyle;
+  ctx.textAlign = align || 'left';
+  ctx.textBaseline = 'top';
+  if (maxWidth) {
+    let truncated = text;
+    while (ctx.measureText(truncated).width > maxWidth && truncated.length > 3) {
+      truncated = truncated.slice(0, -4) + '…';
+    }
+    ctx.fillText(truncated, x, y);
+  } else {
+    ctx.fillText(text, x, y);
+  }
+}
+
+// ── Helper: wrap text to fit width ─────────────────────────────────────
+function wrapText(ctx, text, maxWidth, font, maxLines) {
+  ctx.font = font;
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+
+  for (const word of words) {
+    const test = current ? current + ' ' + word : word;
+    if (ctx.measureText(test).width <= maxWidth) {
+      current = test;
+    } else {
+      if (current) lines.push(current);
+      current = word;
+      if (lines.length >= maxLines - 1) break;
+    }
+  }
+  if (current && lines.length < maxLines) lines.push(current);
+
+  // Truncate last line if needed
+  if (lines.length > 0 && lines.length >= maxLines) {
+    while (ctx.measureText(lines[lines.length - 1] + '…').width > maxWidth && lines[lines.length - 1].length > 3) {
+      lines[lines.length - 1] = lines[lines.length - 1].slice(0, -4) + '…';
+    }
+  }
+
+  return lines;
+}
+
+// ── Main render ────────────────────────────────────────────────────────
+function render() {
+  const tpl = $template.value;
+  const p = PALETTES[tpl][theme];
+
+  ctx.clearRect(0, 0, W, H);
+
+  // ── Background ─────────────────────────────────────────────────────
+  drawGradientBg(ctx, p.bg, p.bgAngle);
+
+  // ── Decorative glow ────────────────────────────────────────────────
+  ctx.save();
+  const glowX = W * 0.88, glowY = H * 0.15, glowR = 320;
+  const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowR);
+  glow.addColorStop(0, p.accent);
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+
+  // ── Article: accent bar ────────────────────────────────────────────
+  if (tpl === 'article') {
+    ctx.fillStyle = p.domain;
+    ctx.fillRect(0, 0, W, 4);
+  }
+
+  // ── Domain ─────────────────────────────────────────────────────────
+  const domainText = ($domain.value || 'yourdomain.com').toUpperCase();
+  drawText(ctx, domainText, PAD, PAD + 4, 400, `600 26px 'Space Grotesk', system-ui, sans-serif`, p.domain);
+
+  // ── Thin divider below domain ──────────────────────────────────────
+  ctx.strokeStyle = p.divider;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, PAD + 52);
+  ctx.lineTo(PAD + 48, PAD + 52);
+  ctx.stroke();
+
+  // ── Title ──────────────────────────────────────────────────────────
+  const titleText = ($title.value || 'Your Title Here').trim();
+  const titleFontSize = tpl === 'blog' ? 68 : 62;
+  const titleFont = `700 ${titleFontSize}px 'Space Grotesk', system-ui, sans-serif`;
+  const titleMaxWidth = W - PAD * 2;
+  const titleLines = wrapText(ctx, titleText, titleMaxWidth, titleFont, 3);
+
+  const titleY = tpl === 'blog' ? 200 : 210;
+  const titleLineHeight = titleFontSize * 1.2;
+  titleLines.forEach((line, i) => {
+    ctx.font = titleFont;
+    ctx.fillStyle = p.title;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(line, PAD, titleY + i * titleLineHeight);
+  });
+
+  // ── Description ────────────────────────────────────────────────────
+  if ($desc.value.trim()) {
+    const descText = $desc.value.trim();
+    const descFontSize = tpl === 'blog' ? 28 : 26;
+    const descFont = `${tpl === 'blog' ? '500' : '400'} ${descFontSize}px 'Inter', system-ui, sans-serif`;
+    const descMaxWidth = tpl === 'blog' ? W - PAD * 2 : W * 0.65;
+    const descY = titleY + titleLines.length * titleLineHeight + 22;
+    const descLines = wrapText(ctx, descText, descMaxWidth, descFont, 2);
+
+    descLines.forEach((line, i) => {
+      ctx.font = descFont;
+      ctx.fillStyle = p.desc;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(line, PAD, descY + i * (descFontSize * 1.45));
+    });
+  }
+
+  // ── Bottom bar: tag + author ───────────────────────────────────────
+  const bottomY = H - PAD - 36;
+
+  // Tag pill
+  if ($tag.value.trim()) {
+    const tagText = $tag.value.trim().toUpperCase();
+    const tagFont = `600 18px 'Inter', system-ui, sans-serif`;
+    ctx.font = tagFont;
+    const tagW = ctx.measureText(tagText).width + 28;
+    const tagH = 34;
+    const tagX = PAD;
+    const tagY = bottomY - tagH;
+
+    roundRect(ctx, tagX, tagY, tagW, tagH, 17);
+    ctx.fillStyle = p.tagBg;
+    ctx.fill();
+    ctx.strokeStyle = p.tagBorder;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.font = tagFont;
+    ctx.fillStyle = p.tagText;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(tagText, tagX + 14, tagY + 7);
+  }
+
+  // Author (bottom-right)
+  if ($author.value.trim()) {
+    const authorText = $author.value.trim();
+    drawText(ctx, authorText, W - PAD, bottomY - 4, 300,
+      `400 22px 'Inter', system-ui, sans-serif`, p.author, 'right');
+  }
+
+  // ── Watermark ──────────────────────────────────────────────────────
+  if (watermark) {
+    const wmText = 'Generated by SnapOG';
+    const wmFont = `400 15px 'Inter', system-ui, sans-serif`;
+    ctx.font = wmFont;
+    const wmW = ctx.measureText(wmText).width;
+
+    // subtle background pill
+    const wmX = W - PAD - wmW - 22;
+    const wmY = PAD + 4;
+    roundRect(ctx, wmX, wmY, wmW + 20, 28, 14);
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    ctx.fill();
+
+    ctx.font = wmFont;
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(wmText, wmX + 10, wmY + 5);
+  }
+}
+
+// ── Initial render ─────────────────────────────────────────────────────
+render();
+
+// ── Handle font loading ────────────────────────────────────────────────
+document.fonts.ready.then(() => render());
+</script>
+
+</body>
+</html>
