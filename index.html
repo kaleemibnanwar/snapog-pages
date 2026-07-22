@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SnapOG — OG Image API for Developers</title>
-<meta name="description" content="Generate beautiful Open Graph images with one API call. Fast, cached, and built for developers. Zero configuration, instant setup.">
-<meta property="og:title" content="SnapOG — OG Image API for Developers">
-<meta property="og:description" content="Generate beautiful Open Graph images with one API call. Fast, cached, and built for developers.">
+<title>SnapOG — Free OG Image Generator (No Signup)</title>
+<meta name="description" content="Generate beautiful Open Graph images right in your browser. 6 templates, dark/light themes, instant PNG download. No signup, no API key, free forever.">
+<meta property="og:title" content="SnapOG — Free OG Image Generator (No Signup)">
+<meta property="og:description" content="Generate beautiful Open Graph images right in your browser. 6 templates, dark/light themes, instant PNG download. Free forever.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,8 +43,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── Typography ─────────────────────────────── */
-
+  /* Typography */
   .display { font-family: 'Space Grotesk', system-ui, sans-serif; }
   .mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
 
@@ -52,14 +51,11 @@
   h2 { font-size: 2.15rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
   h3 { font-size: 1.25rem; font-weight: 600; }
 
-  /* ── Layout ─────────────────────────────────── */
-
+  /* Layout */
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
-
   section { padding: 5rem 0; }
 
-  /* ── Navigation ─────────────────────────────── */
-
+  /* Navigation */
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: rgba(12, 12, 14, 0.85);
@@ -82,8 +78,7 @@
   }
   .nav-cta:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow); }
 
-  /* ── Hero ───────────────────────────────────── */
-
+  /* Hero */
   .hero { padding: 8rem 0 5rem; text-align: center; position: relative; overflow: hidden; }
   .hero::before {
     content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
@@ -117,8 +112,7 @@
   .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
   .btn-secondary:hover { background: var(--surface-hover); border-color: #4A4A50; }
 
-  /* ── OG Preview Card ────────────────────────── */
-
+  /* OG Preview Card */
   .preview-wrap {
     max-width: 640px; margin: 3rem auto 0;
     border-radius: var(--radius-lg); overflow: hidden;
@@ -160,18 +154,15 @@
   .preview-card-meta { padding: 0.6rem 0.9rem; background: #1A1A1E; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border); }
   .preview-card-meta span { color: var(--green); }
 
-  /* ── Sections ───────────────────────────────── */
-
+  /* Sections */
   .section-label {
     font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
     color: var(--green); font-weight: 600; margin-bottom: 0.75rem;
   }
-
   .section-header { text-align: center; margin-bottom: 3.5rem; }
   .section-header p { color: var(--text-muted); margin-top: 0.75rem; font-size: 1.05rem; max-width: 520px; margin-left: auto; margin-right: auto; }
 
-  /* ── How It Works ───────────────────────────── */
-
+  /* How It Works */
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .step {
     background: var(--surface); border: 1px solid var(--border);
@@ -192,8 +183,7 @@
     font-size: 0.8rem; color: var(--green);
   }
 
-  /* ── Templates ──────────────────────────────── */
-
+  /* Templates */
   .templates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .template-card {
     background: var(--surface); border: 1px solid var(--border);
@@ -209,6 +199,11 @@
   .template-thumb.default { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
   .template-thumb.blog { background: linear-gradient(135deg, #1e1a16, #2d2418, #1a1208); }
   .template-thumb.article { background: linear-gradient(135deg, #0d1117, #161b22, #0d1117); border-bottom: 2px solid var(--green); }
+  .template-thumb.saas { background: linear-gradient(135deg, #2d1b4e, #1e1145, #4c1d95); }
+  .template-thumb.saas::before { content: ''; position: absolute; top: -30%; right: -15%; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%); }
+  .template-thumb.podcast { background: linear-gradient(135deg, #2d1a12, #3d2018, #1f0f08); }
+  .template-thumb.github { background: linear-gradient(135deg, #0d1117, #161b22, #0d1117); }
+  .template-thumb.github::after { content: '{ }'; position: absolute; top: 1rem; right: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 2rem; color: rgba(88,166,255,0.12); font-weight: 700; }
   .template-thumb .tp-domain { font-size: 0.55rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
   .template-thumb .tp-title { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0.15rem 0; }
   .template-thumb .tp-desc { font-size: 0.65rem; color: rgba(255,255,255,0.4); }
@@ -216,76 +211,54 @@
   .template-info h3 { margin-bottom: 0.25rem; font-size: 1.05rem; }
   .template-info p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
-  /* ── Pricing ────────────────────────────────── */
-
-  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .pricing-card {
+  /* Features (replacing Pricing) */
+  .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .feature {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 2rem; position: relative;
+    border-radius: var(--radius-lg); padding: 1.75rem;
+    display: flex; gap: 1rem; align-items: flex-start;
     transition: border-color 0.2s;
   }
-  .pricing-card.featured { border-color: var(--green); box-shadow: 0 0 30px var(--green-glow); }
-  .pricing-card.featured::before {
-    content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--green); color: #0C0C0E; padding: 0.2rem 0.9rem; border-radius: 100px;
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em;
+  .feature:hover { border-color: #4A4A50; }
+  .feature-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; flex-shrink: 0;
   }
-  .pricing-tier { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
-  .pricing-price { font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0 0.15rem; }
-  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
-  .pricing-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
-  .pricing-features { list-style: none; margin-bottom: 1.75rem; }
-  .pricing-features li {
-    padding: 0.45rem 0; font-size: 0.88rem; color: var(--text-muted);
-    display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
-  .pricing-features li::before { content: '→'; color: var(--green); font-weight: 700; font-size: 0.85rem; }
-  .pricing-card .btn { width: 100%; justify-content: center; }
-  .pricing-card.featured .btn { background: var(--green); color: #0C0C0E; }
-  .pricing-card.featured .btn:hover { background: #6EE7A0; }
+  .feature-icon.green { background: var(--green-dim); color: var(--green); }
+  .feature-icon.amber { background: #78350F; color: var(--amber); }
+  .feature-info h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+  .feature-info p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
-  /* ── Code Demo ──────────────────────────────── */
-
-  .code-block {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); overflow: hidden;
+  /* API Coming Soon teaser */
+  .coming-soon-wrap {
     max-width: 700px; margin: 0 auto;
-  }
-  .code-header {
-    display: flex; align-items: center; gap: 0.5rem;
-    padding: 0.6rem 0.9rem; background: #1A1A1E;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.75rem; color: var(--text-muted);
-  }
-  .code-header .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .code-body { padding: 1.5rem; overflow-x: auto; }
-  .code-body pre { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.8; color: var(--text); }
-  .code-body .kw { color: #C084FC; } .code-body .str { color: var(--green); } .code-body .cmt { color: #6B7280; }
-
-  /* ── Waitlist ────────────────────────────────── */
-
-  .waitlist-wrap {
-    max-width: 480px; margin: 0 auto;
-    background: var(--surface); border: 1px solid var(--border);
+    background: var(--surface); border: 1px dashed var(--border);
     border-radius: var(--radius-lg); padding: 2.5rem;
     text-align: center;
   }
-  .waitlist-wrap h3 { margin-bottom: 0.35rem; }
-  .waitlist-wrap p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-  .waitlist-form { display: flex; gap: 0.6rem; }
-  .waitlist-form input {
-    flex: 1; background: #0C0C0E; border: 1px solid var(--border);
-    padding: 0.75rem 1rem; border-radius: 8px; color: var(--text);
-    font-family: inherit; font-size: 0.9rem; outline: none;
-    transition: border-color 0.2s;
+  .coming-soon-wrap .tag {
+    display: inline-block; background: var(--green-dim); color: var(--green);
+    padding: 0.2rem 0.8rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 1rem;
   }
-  .waitlist-form input:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
-  .waitlist-msg { margin-top: 0.85rem; font-size: 0.85rem; min-height: 1.3em; }
-  .waitlist-msg.success { color: var(--green); }
-  .waitlist-msg.error { color: var(--red); }
+  .coming-soon-wrap h3 { margin-bottom: 0.5rem; }
+  .coming-soon-wrap p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6; }
 
-  /* ── Footer ─────────────────────────────────── */
+  /* CTA Section */
+  .cta-section {
+    text-align: center; padding: 6rem 0;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
+  /* Footer */
   footer {
     border-top: 1px solid var(--border); padding: 2.5rem 0;
     text-align: center; color: var(--text-muted); font-size: 0.85rem;
@@ -294,16 +267,14 @@
   footer a:hover { text-decoration: underline; }
   footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; }
 
-  /* ── Responsive ─────────────────────────────── */
-
+  /* Responsive */
   @media (max-width: 768px) {
     section { padding: 3.5rem 0; }
     .hero { padding-top: 6rem; }
     .hero h1 { font-size: 2rem; }
     .hero p { font-size: 1rem; }
-    .steps, .templates, .pricing-grid { grid-template-columns: 1fr; }
+    .steps, .templates, .features { grid-template-columns: 1fr; }
     .nav-links .hide-mobile { display: none; }
-    .waitlist-form { flex-direction: column; }
     .preview-card-img .title { font-size: 1.15rem; }
     .preview-card-img { padding: 1.25rem; }
   }
@@ -312,7 +283,6 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 
-  /* ── Focus ──────────────────────────────────── */
   :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 4px; }
 </style>
 </head>
@@ -325,10 +295,8 @@
     <div class="nav-links">
       <a href="#how" class="hide-mobile">How It Works</a>
       <a href="#templates" class="hide-mobile">Templates</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#api" class="hide-mobile">API</a>
-      <a href="/browser/" class="hide-mobile" style="color:var(--amber);font-weight:600">Browser Tool</a>
-      <a href="#waitlist" class="nav-cta">Get Early Access</a>
+      <a href="#features">Features</a>
+      <a href="/browser/" style="color:var(--amber);font-weight:600">Open Tool →</a>
     </div>
   </div>
 </nav>
@@ -337,13 +305,13 @@
 <section class="hero">
   <div class="container">
     <div class="hero-badge">
-      <span class="dot"></span> Launching Soon — Join the Waitlist
+      <span class="dot"></span> Free &mdash; No Signup Required
     </div>
-    <h1>OG images that <br><span class="green">load in 50ms.</span></h1>
-    <p>Generate stunning social preview cards with a single API call. Built on Cloudflare's edge network — cached globally, rendered instantly.</p>
+    <h1>Beautiful OG images.<br><span class="green">No signup. Free forever.</span></h1>
+    <p>Generate stunning social preview cards right in your browser. 6 templates, dark &amp; light themes, instant PNG download. Nothing leaves your computer.</p>
     <div class="hero-actions">
-      <a href="#waitlist" class="btn btn-primary">Get API Key →</a>
-      <a href="#api" class="btn btn-secondary">See the API</a>
+      <a href="/browser/" class="btn btn-primary">Try the Free Tool →</a>
+      <a href="#templates" class="btn btn-secondary">See Templates</a>
     </div>
 
     <!-- OG Preview Card -->
@@ -352,17 +320,17 @@
         <span class="preview-dot r"></span>
         <span class="preview-dot y"></span>
         <span class="preview-dot g"></span>
-        <span class="preview-url">snapog.dev/og?title=Your+Product+Name&description=...</span>
+        <span class="preview-url">Open the tool, type your title, pick a template, download</span>
       </div>
       <div class="preview-body">
         <div class="preview-card">
           <div class="preview-card-img">
-            <div class="domain">snapog.dev</div>
-            <div class="title">Introducing SnapOG</div>
-            <div class="desc">Generate beautiful Open Graph images for your site, blog, or product — from a single API endpoint.</div>
+            <div class="domain">yourcompany.com</div>
+            <div class="title">Your Product Launch</div>
+            <div class="desc">The easiest way to announce what you built. Professional OG images in seconds.</div>
           </div>
           <div class="preview-card-meta">
-            <span>snapog.dev</span> &nbsp;·&nbsp; OG Image API for Developers
+            <span>snapog</span> &nbsp;·&nbsp; Free OG Image Generator
           </div>
         </div>
       </div>
@@ -375,27 +343,27 @@
   <div class="container">
     <div class="section-header">
       <div class="section-label">How It Works</div>
-      <h2>Three steps. One API call.</h2>
-      <p>SnapOG handles rendering, caching, and delivery. You handle building great products.</p>
+      <h2>Three steps. Zero setup.</h2>
+      <p>Everything runs in your browser. No data is ever sent to a server.</p>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
-        <h3>Register</h3>
-        <p>Get a free API key in under 10 seconds. No credit card. No setup. Just your email.</p>
-        <code>sk_a1b2c3d4e5f6...</code>
+        <h3>Open the Tool</h3>
+        <p>Navigate to the browser tool. No signup. No API key. No credit card. It loads instantly — it's a single HTML file.</p>
+        <code>Zero dependencies</code>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <h3>Generate</h3>
-        <p>Hit the endpoint with your title, description, and template. That's it. The image renders on Cloudflare's edge.</p>
-        <code>GET /og?title=Hello&key=sk_...</code>
+        <h3>Customize</h3>
+        <p>Type your title and description. Pick one of 6 templates. Toggle dark or light theme. See your OG image update live as you type.</p>
+        <code>Live preview as you type</code>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <h3>Share</h3>
-        <p>Drop the URL into your &lt;meta&gt; tags. Every platform renders your card perfectly — Twitter, Facebook, LinkedIn, Slack.</p>
-        <code>&lt;meta property="og:image" ...&gt;</code>
+        <h3>Download &amp; Share</h3>
+        <p>Download the PNG (1200×630) or copy to clipboard. Drop it into your &lt;meta&gt; tags. Every platform renders it perfectly.</p>
+        <code>⌘D to download</code>
       </div>
     </div>
   </div>
@@ -406,8 +374,8 @@
   <div class="container">
     <div class="section-header">
       <div class="section-label">Templates</div>
-      <h2>Three looks. Infinite variations.</h2>
-      <p>Choose a template that fits your brand. Dark and light themes on every option.</p>
+      <h2>Six looks. Dark &amp; light for each.</h2>
+      <p>Choose a template that fits your brand. Every template has a dark and light variant — toggle with one click.</p>
     </div>
     <div class="templates">
       <div class="template-card">
@@ -429,7 +397,7 @@
         </div>
         <div class="template-info">
           <h3>Blog</h3>
-          <p>Editorial feel with serif typography. Perfect for blog posts, newsletters, and long-form content.</p>
+          <p>Warm editorial feel. Perfect for blog posts, newsletters, and long-form content.</p>
         </div>
       </div>
       <div class="template-card">
@@ -440,118 +408,121 @@
         </div>
         <div class="template-info">
           <h3>Article</h3>
-          <p>Minimal and high-contrast. Designed for documentation, guides, and reference material.</p>
+          <p>Clean and high-contrast. Designed for documentation, guides, and reference material.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-thumb saas">
+          <div class="tp-domain">launch.acme.com</div>
+          <div class="tp-title">Acme 3.0 Is Here</div>
+          <div class="tp-desc">The next generation of team collaboration</div>
+        </div>
+        <div class="template-info">
+          <h3>SaaS Launch</h3>
+          <p>Bold purple-to-indigo gradient. Stripe/Linear/Vercel energy for product launches.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-thumb podcast">
+          <div class="tp-domain">show.transistor.fm</div>
+          <div class="tp-title">Ep. 42: The Future of AI Tooling</div>
+          <div class="tp-desc">With special guest Jane Developer</div>
+        </div>
+        <div class="template-info">
+          <h3>Podcast</h3>
+          <p>Warm coral tones with Spotify-esque warmth. Designed for audio content promotion.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-thumb github">
+          <div class="tp-domain">github.com/nickname</div>
+          <div class="tp-title">my-awesome-project</div>
+          <div class="tp-desc">A toolkit for building faster web apps</div>
+        </div>
+        <div class="template-info">
+          <h3>GitHub</h3>
+          <p>GitHub's own dark palette. Subtle code watermark. For open source repos and dev projects.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
-<section id="pricing">
+<!-- Features -->
+<section id="features">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">Pricing</div>
-      <h2>Start free. Scale when you're ready.</h2>
-      <p>No hidden fees. No surprise bills. Just honest pricing that grows with you.</p>
+      <div class="section-label">Features</div>
+      <h2>Everything you need. Nothing you don't.</h2>
+      <p>No accounts, no limits, no bullshit. Just a tool that works.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-tier">Free</div>
-        <div class="pricing-price">$0<span>/mo</span></div>
-        <p class="pricing-desc">For hobby projects and personal sites.</p>
-        <ul class="pricing-features">
-          <li>100 images per month</li>
-          <li>All 3 templates</li>
-          <li>Dark &amp; light themes</li>
-          <li>Global CDN caching</li>
-          <li>SnapOG watermark</li>
-        </ul>
-        <a href="#waitlist" class="btn btn-secondary">Get Started</a>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon green">✓</div>
+        <div class="feature-info">
+          <h3>No Signup</h3>
+          <p>Open the page and start creating. No email, no password, no API key. Nothing.</p>
+        </div>
       </div>
-      <div class="pricing-card featured">
-        <div class="pricing-tier">Pro</div>
-        <div class="pricing-price">$19<span>/mo</span></div>
-        <p class="pricing-desc">For shipping products and growing startups.</p>
-        <ul class="pricing-features">
-          <li>10,000 images per month</li>
-          <li>No watermark</li>
-          <li>Custom domain support</li>
-          <li>Priority rendering</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#waitlist" class="btn btn-primary">Get Started</a>
+      <div class="feature">
+        <div class="feature-icon green">🔒</div>
+        <div class="feature-info">
+          <h3>100% Client-Side</h3>
+          <p>Your data never leaves your browser. The Canvas API does all the rendering locally.</p>
+        </div>
       </div>
-      <div class="pricing-card">
-        <div class="pricing-tier">Business</div>
-        <div class="pricing-price">$49<span>/mo</span></div>
-        <p class="pricing-desc">For teams and high-traffic platforms.</p>
-        <ul class="pricing-features">
-          <li>100,000 images per month</li>
-          <li>Everything in Pro</li>
-          <li>API key management</li>
-          <li>Usage analytics dashboard</li>
-          <li>Slack notifications</li>
-        </ul>
-        <a href="#waitlist" class="btn btn-secondary">Get Started</a>
+      <div class="feature">
+        <div class="feature-icon amber">⚡</div>
+        <div class="feature-info">
+          <h3>Instant Preview</h3>
+          <p>The OG image updates live as you type. No waiting, no rendering delay.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon amber">🎨</div>
+        <div class="feature-info">
+          <h3>6 Templates × 2 Themes</h3>
+          <p>Each template has dark and light variants. That's 12 distinct looks with zero configuration.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon green">📥</div>
+        <div class="feature-info">
+          <h3>One-Click Export</h3>
+          <p>Download as PNG (1200×630) or copy to clipboard. Paste directly into Figma, Slack, or Notion.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon green">∞</div>
+        <div class="feature-info">
+          <h3>Free Forever</h3>
+          <p>No usage limits. No watermark (toggle it off). No premium tiers. Just free.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- API Demo -->
-<section id="api">
+<!-- Coming Soon: API -->
+<section>
   <div class="container">
-    <div class="section-header">
-      <div class="section-label">API</div>
-      <h2>It's one GET request.</h2>
-      <p>No SDK to learn. No config to write. Just a URL you can paste into your browser.</p>
+    <div class="coming-soon-wrap">
+      <div class="tag">Coming Soon</div>
+      <h3>Need OG images at scale?</h3>
+      <p>We're building a dynamic API for auto-generating OG images programmatically — for blogs, SaaS platforms, and anyone who needs images generated at scale. The browser tool will always be free.</p>
+      <a href="/browser/" class="btn btn-secondary" style="display:inline-flex">Use the Free Browser Tool →</a>
     </div>
-    <div class="code-block">
-      <div class="code-header">
-        <span class="dot" style="background:#EF4444"></span>
-        <span class="dot" style="background:#F59E0B"></span>
-        <span class="dot" style="background:#4ADE80"></span>
-        Terminal &mdash; bash
-      </div>
-      <div class="code-body">
-<pre><span class="cmt"># Generate an OG image in one line</span>
-<span class="kw">curl</span> <span class="str">"https://snapog.dev/og\</span>
-<span class="str">  ?title=Hello+World\</span>
-<span class="str">  &amp;description=Your+first+OG+image\</span>
-<span class="str">  &amp;domain=mysite.com\</span>
-<span class="str">  &amp;template=default\</span>
-<span class="str">  &amp;theme=dark\</span>
-<span class="str">  &amp;key=sk_YOUR_API_KEY"</span> \
-  -o og-image.png
+  </div>
+</section>
 
-<span class="cmt"># That's it. Drop it in your &lt;head&gt;:</span>
-<span class="kw">&lt;meta</span> property=<span class="str">"og:image"</span> content=<span class="str">"https://snapog.dev/og?title=..."</span><span class="kw"> /&gt;</span></pre>
-      </div>
-    </div>
-    <p style="text-align:center;margin-top:1.5rem;color:var(--text-muted);font-size:0.9rem;">
-      Works with <strong style="color:var(--text);">React</strong>, <strong style="color:var(--text);">Next.js</strong>, <strong style="color:var(--text);">Hugo</strong>, <strong style="color:var(--text);">Astro</strong>, <strong style="color:var(--text);">Svelte</strong>, <strong style="color:var(--text);">PHP</strong> — anything that can make an HTTP request.
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 style="margin-bottom:1rem;">Ready to create your first OG image?</h2>
+    <p style="color:var(--text-muted);font-size:1.1rem;max-width:500px;margin:0 auto 2rem;line-height:1.6;">
+      No signup. No API key. No credit card. Just open the tool and go.
     </p>
-  </div>
-</section>
-
-<!-- Waitlist -->
-<section id="waitlist">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">Get Early Access</div>
-      <h2>Be the first to know when we launch.</h2>
-      <p>We're deploying soon. Drop your email and we'll send you an API key the moment we go live.</p>
-    </div>
-    <div class="waitlist-wrap">
-      <h3>Join the Waitlist</h3>
-      <p>No spam. One email when we launch. That's it.</p>
-      <form class="waitlist-form" id="waitlist-form" onsubmit="handleWaitlist(event)">
-        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
-        <button type="submit" class="btn btn-primary">Notify Me</button>
-      </form>
-      <div class="waitlist-msg" id="waitlist-msg"></div>
-    </div>
+    <a href="/browser/" class="btn btn-primary" style="font-size:1.1rem;padding:0.9rem 2.2rem;">Open SnapOG Browser →</a>
   </div>
 </section>
 
@@ -560,40 +531,14 @@
   <div class="container">
     <div class="footer-links">
       <a href="#">Home</a>
+      <a href="/browser/">Browser Tool</a>
       <a href="#how">How It Works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#api">API</a>
+      <a href="#templates">Templates</a>
       <a href="https://github.com/kaleemibnanwar" target="_blank" rel="noopener">GitHub</a>
     </div>
-    <p>SnapOG &copy; 2026 &mdash; Built with Cloudflare Workers</p>
+    <p>SnapOG &copy; 2026 &mdash; Built with HTML5 Canvas + GitHub Pages. Zero server costs.</p>
   </div>
 </footer>
-
-<script>
-  async function handleWaitlist(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const msg = document.getElementById('waitlist-msg');
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      msg.className = 'waitlist-msg error';
-      msg.textContent = 'Please enter a valid email address.';
-      return;
-    }
-
-    // Store waitlist entry via GitHub API (commit to a file in the repo)
-    try {
-      const entry = `${new Date().toISOString()} ${email}\n`;
-      // For now, acknowledge the signup — in production this would hit an API
-      msg.className = 'waitlist-msg success';
-      msg.textContent = '✓ You\'re on the list! We\'ll email you when SnapOG launches.';
-      document.getElementById('email').value = '';
-    } catch (err) {
-      msg.className = 'waitlist-msg error';
-      msg.textContent = 'Something went wrong. Please try again.';
-    }
-  }
-</script>
 
 </body>
 </html>

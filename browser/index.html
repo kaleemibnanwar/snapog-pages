@@ -247,6 +247,28 @@
   }
   .toast.show { opacity: 1; }
 
+  /* ── Share Prompt ───────────────────────────────── */
+  .share-prompt {
+    margin-top: 0.75rem; padding: 0.75rem 1rem;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius); text-align: center;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+  .share-prompt.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .share-prompt span { color: var(--text-secondary); font-size: 0.82rem; margin-right: 0.6rem; }
+  .share-x-btn {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    background: #1d9bf0; color: #fff; border: none;
+    padding: 0.4rem 0.9rem; border-radius: 6px;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    text-decoration: none; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .share-x-btn:hover { background: #1a8cd8; }
+  .share-x-btn svg { width: 14px; height: 14px; }
+
   /* ── Footer ─────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--border); padding: 1rem 1.5rem;
@@ -397,6 +419,13 @@
     <div class="preview-info">
       <span>1200×630</span> · PNG · <span id="theme-label">Dark</span> · <span id="tpl-label">Default</span>
     </div>
+    <div class="share-prompt" id="share-prompt">
+      <span>Help spread the word?</span>
+      <a class="share-x-btn" id="share-x-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on X
+      </a>
+    </div>
   </section>
 </div>
 
@@ -428,6 +457,8 @@ const $template = document.getElementById('template');
 const $themeLabel = document.getElementById('theme-label');
 const $tplLabel = document.getElementById('tpl-label');
 const $toast = document.getElementById('toast');
+	const $sharePrompt = document.getElementById('share-prompt');
+	const $shareXBtn = document.getElementById('share-x-btn');
 
 let theme = 'dark';
 let watermark = true;
@@ -462,13 +493,23 @@ document.getElementById('watermark-toggle').addEventListener('click', e => {
 });
 
 // ── Toast ──────────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg) {
-  clearTimeout(toastTimer);
-  $toast.textContent = msg;
-  $toast.classList.add('show');
-  toastTimer = setTimeout(() => $toast.classList.remove('show'), 2200);
-}
+	let toastTimer;
+	function showToast(msg) {
+	  clearTimeout(toastTimer);
+	  $toast.textContent = msg;
+	  $toast.classList.add('show');
+	  toastTimer = setTimeout(() => $toast.classList.remove('show'), 2200);
+	}
+
+	// ── Share prompt ────────────────────────────────────────────────────
+	let shareTimer;
+	function showSharePrompt() {
+	  clearTimeout(shareTimer);
+	  const tweet = encodeURIComponent('Just generated an OG image with SnapOG Browser — free, no signup, instant download.\n\nTry it: https://kaleemibnanwar.github.io/snapog-pages/browser/');
+	  $shareXBtn.href = 'https://x.com/intent/tweet?text=' + tweet;
+	  $sharePrompt.classList.add('show');
+	  shareTimer = setTimeout(() => $sharePrompt.classList.remove('show'), 12000);
+	}
 
 // ── Download ───────────────────────────────────────────────────────────
 document.getElementById('btn-download').addEventListener('click', () => {
@@ -480,7 +521,7 @@ document.getElementById('btn-download').addEventListener('click', () => {
     a.download = `${slug || 'og-image'}.png`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('✓ Downloaded!');
+    showToast('✓ Downloaded!'); showSharePrompt();
   }, 'image/png');
 });
 
@@ -491,7 +532,7 @@ document.getElementById('btn-copy').addEventListener('click', async () => {
     await navigator.clipboard.write([
       new ClipboardItem({ 'image/png': blob })
     ]);
-    showToast('✓ Copied to clipboard!');
+    showToast('✓ Copied to clipboard!'); showSharePrompt();
   } catch (err) {
     // Fallback: copy as data URL if ClipboardItem not supported
     try {
