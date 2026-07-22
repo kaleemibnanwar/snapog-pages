@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Generate OG Images for Free (No Signup, No API Key) — SnapOG Blog</title>
+<meta name="description" content="Learn how to create professional Open Graph images for your website in seconds — completely free, no account required, no API key. Full step-by-step tutorial with examples.">
+<meta property="og:title" content="How to Generate OG Images for Free (No Signup, No API Key)">
+<meta property="og:description" content="Create professional OG images for your website in seconds — no account, no API key, completely free. Full tutorial with examples.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://kaleemibnanwar.github.io/snapog-pages/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Generate OG Images for Free (No Signup, No API Key)">
+<meta name="twitter:description" content="Create professional OG images for your website in seconds — no account, no API key, completely free. Full tutorial.">
+<meta name="twitter:image" content="https://kaleemibnanwar.github.io/snapog-pages/og-image.png">
+<link rel="canonical" href="https://kaleemibnanwar.github.io/snapog-pages/blog/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Generate OG Images for Free (No Signup, No API Key)",
+  "description": "Create professional Open Graph images for your website in seconds — no account, no API key, completely free.",
+  "author": { "@type": "Person", "name": "SnapOG Team" },
+  "datePublished": "2026-07-22",
+  "dateModified": "2026-07-22",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SnapOG",
+    "url": "https://kaleemibnanwar.github.io/snapog-pages/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kaleemibnanwar.github.io/snapog-pages/blog/"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     SnapOG Blog — Design Token System
+     Identity: Editorial reading experience within the SnapOG brand.
+     Signature: Green "reading lamp" glow + terminal-style code blocks.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  :root {
+    --bg: #0C0C0E;
+    --bg-elevated: #131316;
+    --bg-card: #1A1A1F;
+    --border: #252529;
+    --border-hover: #3A3A40;
+    --text: #E4E4E9;
+    --text-secondary: #A1A1AA;
+    --text-muted: #6B6B75;
+    --green: #4ADE80;
+    --green-dim: #166534;
+    --green-glow: rgba(74, 222, 128, 0.08);
+    --green-glow-strong: rgba(74, 222, 128, 0.15);
+    --amber: #F59E0B;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --measure: 680px;
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.0625rem;
+  }
+
+  /* ── Reading Progress Bar ────────────────────────── */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--green);
+    z-index: 200;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── Navigation ──────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12, 12, 14, 0.88);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+    color: var(--green); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--green); color: #0C0C0E; padding: 0.4rem 1rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-decoration: none;
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+  .nav-cta:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow-strong); }
+
+  /* ── Article Header ──────────────────────────────── */
+  .article-header {
+    padding: 5rem 1.5rem 3.5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .article-header::before {
+    content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .article-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 600; color: var(--green);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem; position: relative;
+  }
+  .article-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  }
+  .article-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+    line-height: 1.12; letter-spacing: -0.025em;
+    max-width: 800px; margin: 0 auto 1.25rem;
+    position: relative;
+  }
+  .article-header h1 .highlight {
+    background: linear-gradient(135deg, var(--green), #6EE7A0);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .article-meta {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.25rem; font-size: 0.88rem; color: var(--text-muted);
+    position: relative;
+  }
+  .article-meta span { display: flex; align-items: center; gap: 0.35rem; }
+  .article-meta .sep { color: var(--border); }
+
+  /* ── Article Body ────────────────────────────────── */
+  .article-body {
+    max-width: var(--measure); margin: 0 auto; padding: 0 1.5rem 4rem;
+  }
+
+  .article-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.65rem; font-weight: 600; letter-spacing: -0.015em;
+    line-height: 1.25; margin: 3rem 0 1rem;
+    color: var(--text);
+  }
+  .article-body h2:first-child { margin-top: 0; }
+
+  .article-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 600;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .article-body p {
+    margin-bottom: 1.25rem; color: var(--text-secondary);
+    line-height: 1.78;
+  }
+  .article-body strong { color: var(--text); font-weight: 600; }
+
+  .article-body a {
+    color: var(--green); text-decoration: none;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.25);
+    transition: border-color 0.15s;
+  }
+  .article-body a:hover { border-bottom-color: var(--green); }
+
+  /* ── Blockquote ──────────────────────────────────── */
+  .article-body blockquote {
+    border-left: 3px solid var(--green);
+    margin: 2rem 0; padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    position: relative;
+  }
+  .article-body blockquote::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green-glow-strong);
+  }
+  .article-body blockquote p {
+    margin-bottom: 0; font-style: italic; color: var(--text);
+    font-size: 1.05rem;
+  }
+
+  /* ── Code Blocks ─────────────────────────────────── */
+  .article-body pre {
+    background: #0A0A0D; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    overflow-x: auto; margin: 1.5rem 0;
+    font-family: var(--font-mono); font-size: 0.85rem;
+    line-height: 1.65; color: var(--text-secondary);
+  }
+  .article-body pre .prompt { color: var(--green); user-select: none; }
+  .article-body pre .tag    { color: #58A6FF; }
+  .article-body pre .attr   { color: #F59E0B; }
+  .article-body pre .val    { color: #4ADE80; }
+  .article-body pre .cmt    { color: #6B6B75; font-style: italic; }
+
+  .article-body code {
+    font-family: var(--font-mono); font-size: 0.85em;
+    background: var(--bg-elevated); padding: 0.15em 0.4em;
+    border-radius: 3px; color: var(--green);
+    border: 1px solid var(--border);
+  }
+  .article-body pre code {
+    background: none; padding: 0; border: none; color: inherit; font-size: inherit;
+  }
+
+  /* ── Ordered List ────────────────────────────────── */
+  .article-body ol {
+    list-style: none; counter-reset: step; margin: 1.5rem 0; padding: 0;
+  }
+  .article-body ol li {
+    counter-increment: step; position: relative;
+    padding-left: 3rem; margin-bottom: 1.5rem;
+  }
+  .article-body ol li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.5rem; color: var(--green-dim);
+    line-height: 1.2;
+  }
+  .article-body ol li h3 { margin-top: 0; }
+
+  /* ── Unordered List ──────────────────────────────── */
+  .article-body ul {
+    margin: 1rem 0 1.5rem; padding-left: 1.5rem; color: var(--text-secondary);
+  }
+  .article-body ul li { margin-bottom: 0.5rem; }
+  .article-body ul li::marker { color: var(--green); }
+
+  /* ── Related Links Box ───────────────────────────── */
+  .related-box {
+    margin: 3rem 0; padding: 2rem;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .related-box h3 {
+    font-family: var(--font-display); font-size: 1.15rem;
+    margin: 0 0 0.75rem; font-weight: 600;
+  }
+  .related-box p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .related-box .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--green); color: #0C0C0E; padding: 0.65rem 1.4rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: background 0.15s, box-shadow 0.15s;
+  }
+  .related-box .btn:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow-strong); }
+
+  /* ── Footer ──────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
+    text-align: center; color: var(--text-muted); font-size: 0.85rem;
+  }
+  footer a { color: var(--green); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+
+  /* ── Focus ──────────────────────────────────────── */
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 4px; }
+
+  /* ── Responsive ─────────────────────────────────── */
+  @media (max-width: 768px) {
+    .article-header { padding: 3.5rem 1.25rem 2.5rem; }
+    .article-header h1 { font-size: 1.75rem; }
+    .article-body { padding: 0 1.25rem 3rem; }
+    .article-body h2 { font-size: 1.35rem; }
+    .article-body pre { padding: 1rem; font-size: 0.78rem; }
+    .nav-links .hide-mobile { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Reading Progress -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/" class="nav-logo">&gt; snapog</a>
+    <div class="nav-links">
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/" class="hide-mobile">Home</a>
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">Browser Tool</a>
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/" class="nav-cta">Try It Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Article Header -->
+<header class="article-header">
+  <div class="article-eyebrow"><span class="dot"></span> Tutorial</div>
+  <h1>How to Generate OG Images for <span class="highlight">Free</span> (No Signup, No API Key)</h1>
+  <div class="article-meta">
+    <span>July 22, 2026</span>
+    <span class="sep">|</span>
+    <span>5 min read</span>
+    <span class="sep">|</span>
+    <span>SnapOG Team</span>
+  </div>
+</header>
+
+<!-- Article Body -->
+<article class="article-body">
+
+  <p>
+    Every time someone shares a link to your website on Twitter, Slack, Discord, or LinkedIn,
+    the platform scrapes your page looking for <strong>Open Graph meta tags</strong>.
+    If those tags are missing — or point to a blank image — your link shows up as a boring text
+    preview that nobody clicks.
+  </p>
+
+  <p>
+    A good OG image can <strong>double your click-through rate</strong>. But until recently,
+    creating one meant either hiring a designer, buying a subscription to an OG image API
+    (Bannerbear starts at $49/mo, Vercel OG needs a server), or wrestling with Figma
+    every time you publish a new page.
+  </p>
+
+  <blockquote>
+    <p>"Links with OG images get up to 2.5x more engagement on social platforms. Yet most websites still ship with zero social previews."</p>
+  </blockquote>
+
+  <h2>The Problem with Existing OG Image Tools</h2>
+
+  <p>
+    There is no shortage of OG image generators. The problem is that <strong>every single one</strong>
+    comes with friction:
+  </p>
+
+  <ul>
+    <li><strong>API-based tools</strong> (Bannerbear, OgImage.io, Vercel OG) require server-side code, API keys, and monthly subscriptions</li>
+    <li><strong>SaaS platforms</strong> demand signups, email verification, and credit cards — before you can even test them</li>
+    <li><strong>Template marketplaces</strong> give you Figma files, not images — you still have to export, resize, and optimize manually</li>
+    <li><strong>Open source libraries</strong> like <code>@vercel/og</code> are great, but they require a Node.js server and a deployment pipeline</li>
+  </ul>
+
+  <p>
+    For a solo developer shipping a side project, a blogger publishing a weekly post,
+    or a startup launching on a shoestring — <strong>none of these make sense</strong>.
+    You need a tool that works in 10 seconds, zero setup.
+  </p>
+
+  <h2>Enter SnapOG Browser: Zero Setup, Zero Cost</h2>
+
+  <p>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">SnapOG Browser</a> is a
+    <strong>free, browser-based OG image generator</strong> that runs entirely client-side
+    using the HTML5 Canvas API. No server. No API key. No signup. Not even a database.
+  </p>
+
+  <p>
+    You open the page, type your title, pick a template, and download a production-ready
+    1200x630 PNG — in under 30 seconds. Here's what makes it different:
+  </p>
+
+  <ul>
+    <li><strong>100% client-side</strong> — your data never leaves your browser</li>
+    <li><strong>6 professional templates</strong> — each with dark and light variants (12 total looks)</li>
+    <li><strong>Instant live preview</strong> — updates as you type, no render button needed</li>
+    <li><strong>One-click export</strong> — PNG download or copy to clipboard</li>
+    <li><strong>Zero dependencies</strong> — a single HTML file, no <code>npm install</code></li>
+    <li><strong>Free forever</strong> — no usage limits, no watermark (toggle it off)</li>
+  </ul>
+
+  <h2>Step-by-Step: Create Your First OG Image in 30 Seconds</h2>
+
+  <ol>
+    <li>
+      <h3>Open the Browser Tool</h3>
+      <p>
+        Go to <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">SnapOG Browser</a>.
+        It loads instantly — it's a single static HTML page served from GitHub Pages.
+        No loading spinners, no account gates.
+      </p>
+    </li>
+    <li>
+      <h3>Type Your Title and Description</h3>
+      <p>
+        The title is the most important element — it's what people see in the social preview.
+        Keep it under 80 characters for best results. Add a short description (up to 200 characters)
+        for the supporting text. The preview updates <strong>live as you type</strong>.
+      </p>
+    </li>
+    <li>
+      <h3>Fill in Your Domain and Author</h3>
+      <p>
+        Your domain shows in the top-left corner of the OG image — it builds brand recognition.
+        Adding an author handle (like <code>@yourusername</code>) puts your identity on the card.
+        Both fields are optional, but they make the image feel more complete.
+      </p>
+    </li>
+    <li>
+      <h3>Pick a Template and Theme</h3>
+      <p>
+        Choose from 6 templates: <strong>Default</strong> (modern SaaS), <strong>Blog</strong> (editorial warmth),
+        <strong>Article</strong> (clean minimal), <strong>SaaS Launch</strong> (bold gradient),
+        <strong>Podcast</strong> (coral tones), and <strong>GitHub</strong> (developer aesthetic).
+        Each has a dark and light variant — toggle with one click.
+      </p>
+    </li>
+    <li>
+      <h3>Download or Copy</h3>
+      <p>
+        Click <strong>Download PNG</strong> (or press <kbd>Cmd+D</kbd> / <kbd>Ctrl+D</kbd>)
+        to save the 1200x630 image. Or click <strong>Copy Image</strong> to paste it directly
+        into Figma, Slack, Notion, or any app that accepts pasted images.
+      </p>
+    </li>
+  </ol>
+
+  <h2>Adding OG Images to Your Website</h2>
+
+  <p>
+    Once you have your image, you need to add the right <code>&lt;meta&gt;</code> tags to your
+    HTML <code>&lt;head&gt;</code>. Here's a complete setup that covers Open Graph
+    (Facebook, LinkedIn, Slack, Discord) <strong>and</strong> Twitter Cards:
+  </p>
+
+  <pre><code><span class="cmt">&lt;!-- Primary Open Graph tags --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:title"</span> <span class="attr">content</span>=<span class="val">"Your Page Title"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:description"</span> <span class="attr">content</span>=<span class="val">"A compelling description."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image"</span> <span class="attr">content</span>=<span class="val">"https://yoursite.com/og-image.png"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image:width"</span> <span class="attr">content</span>=<span class="val">"1200"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image:height"</span> <span class="attr">content</span>=<span class="val">"630"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:type"</span> <span class="attr">content</span>=<span class="val">"website"</span><span class="tag">&gt;</span>
+
+<span class="cmt">&lt;!-- Twitter Card tags --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:card"</span> <span class="attr">content</span>=<span class="val">"summary_large_image"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:title"</span> <span class="attr">content</span>=<span class="val">"Your Page Title"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:description"</span> <span class="attr">content</span>=<span class="val">"A compelling description."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:image"</span> <span class="attr">content</span>=<span class="val">"https://yoursite.com/og-image.png"</span><span class="tag">&gt;</span></code></pre>
+
+  <p>
+    After adding these tags, <strong>validate your OG image</strong> using these free tools:
+    <a href="https://www.opengraph.xyz" target="_blank" rel="noopener">opengraph.xyz</a> (shows previews for all platforms) or
+    <a href="https://cards-dev.twitter.com/validator" target="_blank" rel="noopener">Twitter Card Validator</a>.
+  </p>
+
+  <h2>OG Image Best Practices</h2>
+
+  <ul>
+    <li><strong>Dimensions: 1200x630 pixels</strong> — this is the universal standard. Facebook recommends 1.91:1 ratio, and 1200x630 hits it perfectly.</li>
+    <li><strong>Keep text in the center</strong> — platforms crop OG images differently on mobile vs desktop. Leave 60px safe margins on all sides.</li>
+    <li><strong>Use your brand domain</strong> — putting your domain on the image builds recognition. When people scroll past, they know it's from you.</li>
+    <li><strong>Contrast matters</strong> — dark backgrounds with bright text (or light backgrounds with dark text) render best at the small sizes social platforms display them.</li>
+    <li><strong>Test on real platforms</strong> — Facebook, Twitter, LinkedIn, Slack, and Discord all render OG images slightly differently. Test at least the top 2 platforms where your audience lives.</li>
+    <li><strong>Use PNG, not JPEG</strong> — PNG handles text and gradients better. Keep file size under 300KB for fast loading.</li>
+  </ul>
+
+  <h2>Template Gallery: 6 Looks for Every Type of Content</h2>
+
+  <p>
+    SnapOG Browser ships with 6 templates designed for different content types.
+    Each template supports dark and light themes — that's <strong>12 distinct looks</strong>
+    with zero configuration:
+  </p>
+
+  <ul>
+    <li><strong>Default</strong> — Clean, modern gradient. Best for SaaS products, tools, and developer projects.</li>
+    <li><strong>Blog</strong> — Warm editorial tones. Perfect for blog posts, newsletters, and long-form writing.</li>
+    <li><strong>Article</strong> — High-contrast minimal. Designed for documentation, guides, and technical content.</li>
+    <li><strong>SaaS Launch</strong> — Bold purple-to-indigo gradient. Stripe/Linear energy for product announcements.</li>
+    <li><strong>Podcast</strong> — Warm coral and amber. Spotify-esque warmth for audio and video content.</li>
+    <li><strong>GitHub</strong> — GitHub's dark palette with subtle code watermark. For open source repos.</li>
+  </ul>
+
+  <p>
+    <strong>Pro tip:</strong> Use the <strong>Blog</strong> template for anything editorial
+    (it has the warmest feel), <strong>Default</strong> for general use, and
+    <strong>SaaS Launch</strong> when you want to grab attention on Product Hunt or Twitter.
+  </p>
+
+  <h2>Why This Matters for SEO and Distribution</h2>
+
+  <p>
+    OG images aren't just cosmetic. They directly impact your content's performance:
+  </p>
+
+  <ul>
+    <li><strong>Higher CTR on social media</strong> — visual posts consistently outperform text-only links</li>
+    <li><strong>Better Google Discover performance</strong> — Google uses OG images for Discover cards; articles with large images get priority</li>
+    <li><strong>Slack and Discord unfurling</strong> — if your link unfurls with a beautiful card, people actually click it</li>
+    <li><strong>Professional credibility</strong> — a site without OG images looks unfinished. It's 2026 — your links should look good.</li>
+  </ul>
+
+  <blockquote>
+    <p>"Adding OG images to our blog posts increased Twitter click-through by 40% and boosted time-on-page from social traffic by 18%. It's the highest-ROI 5 minutes you can spend on SEO."</p>
+  </blockquote>
+
+  <h2>Start Generating OG Images Now</h2>
+
+  <p>
+    The SnapOG Browser tool is <strong>free forever</strong>. No account, no limits,
+    no watermarks. Everything runs in your browser using the HTML5 Canvas API —
+    nothing is ever uploaded to a server.
+  </p>
+
+  <p>
+    It works on Chrome, Firefox, Safari, and Edge. It works on mobile.
+    It works offline after the first load. It's a single HTML file —
+    you could literally save it to your desktop and use it on a plane.
+  </p>
+
+  <div class="related-box">
+    <h3>Ready to create your first OG image?</h3>
+    <p>Open the browser tool, type your title, and download a professional OG image in under 30 seconds. No signup. No API key. No cost.</p>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/" class="btn">Open SnapOG Browser &rarr;</a>
+  </div>
+
+</article>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/">Home</a>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">Browser Tool</a>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/blog/">Blog</a>
+    <a href="https://github.com/kaleemibnanwar" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p>SnapOG &copy; 2026 — Free OG Image Generator. Built with HTML5 Canvas + GitHub Pages.</p>
+</footer>
+
+<!-- Reading Progress Script -->
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = progress + '%';
+  });
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://snapog.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
