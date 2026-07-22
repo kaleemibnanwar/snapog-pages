@@ -316,29 +316,29 @@
 
     <div class="field">
       <label class="field-label" for="title">Title <span class="optional">required</span></label>
-      <input type="text" id="title" placeholder="Your Product Name or Post Title" value="Introducing SnapOG Browser" maxlength="120" autofocus>
+      <input type="text" id="title" placeholder="Your Product Name or Post Title" maxlength="120" autofocus>
     </div>
 
     <div class="field">
       <label class="field-label" for="description">Description <span class="optional">optional</span></label>
-      <textarea id="description" placeholder="A short, compelling description of your content" maxlength="200">Generate OG images right in your browser. No signup, no API key.</textarea>
+      <textarea id="description" placeholder="A short, compelling description of your content" maxlength="200"></textarea>
     </div>
 
     <div class="field-row">
       <div class="field">
         <label class="field-label" for="domain">Domain</label>
-        <input type="text" id="domain" placeholder="yoursite.com" value="snapog.dev" maxlength="100">
+        <input type="text" id="domain" placeholder="yoursite.com" maxlength="100">
       </div>
       <div class="field">
         <label class="field-label" for="author">Author</label>
-        <input type="text" id="author" placeholder="@username" value="@snapog" maxlength="80">
+        <input type="text" id="author" placeholder="@username" maxlength="80">
       </div>
     </div>
 
     <div class="field-row">
       <div class="field">
         <label class="field-label" for="tag">Tag / Category</label>
-        <input type="text" id="tag" placeholder="Launch" value="Tool" maxlength="40">
+        <input type="text" id="tag" placeholder="Launch" maxlength="40">
       </div>
       <div class="field">
         <label class="field-label" for="template">Template</label>
@@ -346,6 +346,9 @@
           <option value="default">Default — Modern SaaS</option>
           <option value="blog">Blog — Editorial</option>
           <option value="article">Article — Minimal</option>
+          <option value="saas">SaaS — Product Launch</option>
+          <option value="podcast">Podcast — Audio Content</option>
+          <option value="github">GitHub — Open Source</option>
         </select>
       </div>
     </div>
@@ -369,11 +372,11 @@
     <div class="actions">
       <button class="btn btn-primary" id="btn-download">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PNG (1200×630)
+        Download PNG (1200×630)&nbsp;&nbsp;<span style="opacity:0.4;font-weight:400">⌘D</span>
       </button>
       <button class="btn btn-secondary" id="btn-copy">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copy to Clipboard
+        Copy Image
       </button>
     </div>
   </aside>
@@ -501,9 +504,9 @@ document.getElementById('btn-copy').addEventListener('click', async () => {
   }
 });
 
-// ── Keyboard shortcut: Cmd/Ctrl+S to download ─────────────────────────
+// ── Keyboard shortcut: Cmd/Ctrl+D to download ─────────────────────────
 document.addEventListener('keydown', e => {
-  if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
     e.preventDefault();
     document.getElementById('btn-download').click();
   }
@@ -601,6 +604,90 @@ const PALETTES = {
       accent: 'rgba(74,222,128,0.06)',
       divider: 'rgba(0,0,0,0.06)',
     }
+  },
+  saas: {
+    dark: {
+      bg: ['#2D1B4E', '#1E1040', '#3B1F6B'],
+      bgAngle: 135,
+      domain: '#A78BFA',
+      title: '#FAFAFF',
+      desc: 'rgba(250,250,255,0.52)',
+      author: 'rgba(250,250,255,0.38)',
+      tagBg: 'rgba(167,139,250,0.14)',
+      tagText: '#C4B5FD',
+      tagBorder: 'rgba(167,139,250,0.28)',
+      accent: 'rgba(167,139,250,0.07)',
+      divider: 'rgba(255,255,255,0.07)',
+    },
+    light: {
+      bg: ['#FAFAFE', '#F3F0FF', '#EDE9FE'],
+      bgAngle: 135,
+      domain: '#7C3AED',
+      title: '#1E1040',
+      desc: 'rgba(30,16,64,0.55)',
+      author: 'rgba(30,16,64,0.40)',
+      tagBg: 'rgba(124,58,237,0.10)',
+      tagText: '#6D28D9',
+      tagBorder: 'rgba(124,58,237,0.20)',
+      accent: 'rgba(167,139,250,0.08)',
+      divider: 'rgba(0,0,0,0.06)',
+    }
+  },
+  podcast: {
+    dark: {
+      bg: ['#2D1F1A', '#1F1410', '#3B2218'],
+      bgAngle: 145,
+      domain: '#F97316',
+      title: '#FFF7ED',
+      desc: 'rgba(255,247,237,0.50)',
+      author: 'rgba(255,247,237,0.36)',
+      tagBg: 'rgba(249,115,22,0.12)',
+      tagText: '#FB923C',
+      tagBorder: 'rgba(249,115,22,0.24)',
+      accent: 'rgba(249,115,22,0.06)',
+      divider: 'rgba(255,255,255,0.05)',
+    },
+    light: {
+      bg: ['#FFFBF5', '#FFF7ED', '#FFEDD5'],
+      bgAngle: 145,
+      domain: '#C2410C',
+      title: '#1F1410',
+      desc: 'rgba(31,20,16,0.55)',
+      author: 'rgba(31,20,16,0.40)',
+      tagBg: 'rgba(194,65,12,0.08)',
+      tagText: '#9A3412',
+      tagBorder: 'rgba(194,65,12,0.18)',
+      accent: 'rgba(249,115,22,0.08)',
+      divider: 'rgba(0,0,0,0.05)',
+    }
+  },
+  github: {
+    dark: {
+      bg: ['#0D1117', '#0D1117', '#161B22'],
+      bgAngle: 180,
+      domain: '#58A6FF',
+      title: '#E6EDF3',
+      desc: 'rgba(230,237,243,0.50)',
+      author: 'rgba(230,237,243,0.35)',
+      tagBg: 'rgba(88,166,255,0.10)',
+      tagText: '#58A6FF',
+      tagBorder: 'rgba(88,166,255,0.22)',
+      accent: 'rgba(88,166,255,0.08)',
+      divider: 'rgba(255,255,255,0.05)',
+    },
+    light: {
+      bg: ['#FFFFFF', '#F6F8FA', '#E5E8EB'],
+      bgAngle: 180,
+      domain: '#0969DA',
+      title: '#0D1117',
+      desc: 'rgba(13,17,23,0.55)',
+      author: 'rgba(13,17,23,0.40)',
+      tagBg: 'rgba(9,105,218,0.07)',
+      tagText: '#0969DA',
+      tagBorder: 'rgba(9,105,218,0.16)',
+      accent: 'rgba(88,166,255,0.06)',
+      divider: 'rgba(0,0,0,0.06)',
+    }
   }
 };
 
@@ -692,7 +779,10 @@ function render() {
 
   // ── Decorative glow ────────────────────────────────────────────────
   ctx.save();
-  const glowX = W * 0.88, glowY = H * 0.15, glowR = 320;
+  const isSaaS = tpl === 'saas';
+  const glowX = isSaaS ? W * 0.92 : W * 0.88;
+  const glowY = isSaaS ? H * 0.10 : H * 0.15;
+  const glowR = isSaaS ? 450 : 320;
   const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowR);
   glow.addColorStop(0, p.accent);
   glow.addColorStop(1, 'transparent');
@@ -700,10 +790,21 @@ function render() {
   ctx.fillRect(0, 0, W, H);
   ctx.restore();
 
-  // ── Article: accent bar ────────────────────────────────────────────
-  if (tpl === 'article') {
+  // ── Article / Podcast: accent bar ──────────────────────────────────
+  if (tpl === 'article' || tpl === 'podcast') {
     ctx.fillStyle = p.domain;
     ctx.fillRect(0, 0, W, 4);
+  }
+
+  // ── GitHub: code braces watermark ──────────────────────────────────
+  if (tpl === 'github') {
+    ctx.save();
+    ctx.font = `400 96px 'JetBrains Mono', monospace`;
+    ctx.fillStyle = p.accent;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('{ }', PAD, H - PAD + 4);
+    ctx.restore();
   }
 
   // ── Domain ─────────────────────────────────────────────────────────
@@ -719,7 +820,7 @@ function render() {
   ctx.stroke();
 
   // ── Title ──────────────────────────────────────────────────────────
-  const titleText = ($title.value || 'Your Title Here').trim();
+  const titleText = ($title.value || 'Enter a title…').trim();
   const titleFontSize = tpl === 'blog' ? 68 : 62;
   const titleFont = `700 ${titleFontSize}px 'Space Grotesk', system-ui, sans-serif`;
   const titleMaxWidth = W - PAD * 2;
