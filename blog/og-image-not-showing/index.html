@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG Image Not Showing? How to Fix It (2026 Debugging Guide) — SnapOG Blog</title>
+<meta name="description" content="OG image not appearing on Facebook, Twitter, Slack, or Discord? Debug caching, load time, format, and platform quirks with this step-by-step guide.">
+<meta property="og:title" content="OG Image Not Showing? How to Fix It (2026 Debugging Guide)">
+<meta property="og:description" content="OG image not appearing on Facebook, Twitter, Slack, or Discord? Debug caching, load time, format, and platform quirks with this step-by-step guide.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://kaleemibnanwar.github.io/snapog-pages/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OG Image Not Showing? How to Fix It (2026 Debugging Guide)">
+<meta name="twitter:description" content="OG image not appearing on Facebook, Twitter, Slack, or Discord? Debug caching, load time, format, and platform quirks with this step-by-step guide.">
+<meta name="twitter:image" content="https://kaleemibnanwar.github.io/snapog-pages/og-image.png">
+<link rel="canonical" href="https://kaleemibnanwar.github.io/snapog-pages/blog/og-image-not-showing/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "OG Image Not Showing? How to Fix It (2026 Debugging Guide)",
+  "description": "OG image not appearing on Facebook, Twitter, Slack, or Discord? Debug caching, load time, format, and platform quirks with this step-by-step guide.",
+  "author": { "@type": "Person", "name": "SnapOG Team" },
+  "datePublished": "2026-07-22",
+  "dateModified": "2026-07-22",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SnapOG",
+    "url": "https://kaleemibnanwar.github.io/snapog-pages/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kaleemibnanwar.github.io/snapog-pages/blog/og-image-not-showing/"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     SnapOG Blog — Design Token System
+     Identity: Editorial reading experience within the SnapOG brand.
+     Signature: Green "reading lamp" glow + terminal-style code blocks.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  :root {
+    --bg: #0C0C0E;
+    --bg-elevated: #131316;
+    --bg-card: #1A1A1F;
+    --border: #252529;
+    --border-hover: #3A3A40;
+    --text: #E4E4E9;
+    --text-secondary: #A1A1AA;
+    --text-muted: #6B6B75;
+    --green: #4ADE80;
+    --green-dim: #166534;
+    --green-glow: rgba(74, 222, 128, 0.08);
+    --green-glow-strong: rgba(74, 222, 128, 0.15);
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --red-glow: rgba(239, 68, 68, 0.1);
+    --blue: #58A6FF;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --measure: 680px;
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.0625rem;
+  }
+
+  /* ── Reading Progress Bar ────────────────────────── */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--green);
+    z-index: 200;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── Navigation ──────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12, 12, 14, 0.88);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+    color: var(--green); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--green); color: #0C0C0E; padding: 0.4rem 1rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-decoration: none;
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+  .nav-cta:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow-strong); }
+
+  /* ── Article Header ──────────────────────────────── */
+  .article-header {
+    padding: 5rem 1.5rem 3.5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .article-header::before {
+    content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .article-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 600; color: var(--amber);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem; position: relative;
+  }
+  .article-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--amber);
+  }
+  .article-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+    line-height: 1.12; letter-spacing: -0.025em;
+    max-width: 800px; margin: 0 auto 1.25rem;
+    position: relative;
+  }
+  .article-header h1 .highlight {
+    background: linear-gradient(135deg, var(--green), #6EE7A0);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .article-meta {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.25rem; font-size: 0.88rem; color: var(--text-muted);
+    position: relative;
+  }
+  .article-meta span { display: flex; align-items: center; gap: 0.35rem; }
+  .article-meta .sep { color: var(--border); }
+
+  /* ── Article Body ────────────────────────────────── */
+  .article-body {
+    max-width: var(--measure); margin: 0 auto; padding: 0 1.5rem 4rem;
+  }
+
+  .article-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.65rem; font-weight: 600; letter-spacing: -0.015em;
+    line-height: 1.25; margin: 3rem 0 1rem;
+    color: var(--text);
+  }
+  .article-body h2:first-child { margin-top: 0; }
+
+  .article-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 600;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .article-body p {
+    margin-bottom: 1.25rem; color: var(--text-secondary);
+    line-height: 1.78;
+  }
+  .article-body strong { color: var(--text); font-weight: 600; }
+
+  .article-body a {
+    color: var(--green); text-decoration: none;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.25);
+    transition: border-color 0.15s;
+  }
+  .article-body a:hover { border-bottom-color: var(--green); }
+
+  /* ── Blockquote ──────────────────────────────────── */
+  .article-body blockquote {
+    border-left: 3px solid var(--green);
+    margin: 2rem 0; padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    position: relative;
+  }
+  .article-body blockquote::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green-glow-strong);
+  }
+  .article-body blockquote p {
+    margin-bottom: 0; font-style: italic; color: var(--text);
+    font-size: 1.05rem;
+  }
+
+  /* ── Code Blocks ─────────────────────────────────── */
+  .article-body pre {
+    background: #0A0A0D; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    overflow-x: auto; margin: 1.5rem 0;
+    font-family: var(--font-mono); font-size: 0.85rem;
+    line-height: 1.65; color: var(--text-secondary);
+  }
+  .article-body pre .prompt { color: var(--green); user-select: none; }
+  .article-body pre .tag    { color: #58A6FF; }
+  .article-body pre .attr   { color: #F59E0B; }
+  .article-body pre .val    { color: #4ADE80; }
+  .article-body pre .cmt    { color: #6B6B75; font-style: italic; }
+
+  .article-body code {
+    font-family: var(--font-mono); font-size: 0.85em;
+    background: var(--bg-elevated); padding: 0.15em 0.4em;
+    border-radius: 3px; color: var(--green);
+    border: 1px solid var(--border);
+  }
+  .article-body pre code {
+    background: none; padding: 0; border: none; color: inherit; font-size: inherit;
+  }
+
+  /* ── Ordered List ────────────────────────────────── */
+  .article-body ol {
+    list-style: none; counter-reset: step; margin: 1.5rem 0; padding: 0;
+  }
+  .article-body ol li {
+    counter-increment: step; position: relative;
+    padding-left: 3rem; margin-bottom: 1.5rem;
+  }
+  .article-body ol li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.5rem; color: var(--green-dim);
+    line-height: 1.2;
+  }
+  .article-body ol li h3 { margin-top: 0; }
+
+  /* ── Unordered List ──────────────────────────────── */
+  .article-body ul {
+    margin: 1rem 0 1.5rem; padding-left: 1.5rem; color: var(--text-secondary);
+  }
+  .article-body ul li { margin-bottom: 0.5rem; }
+  .article-body ul li::marker { color: var(--green); }
+
+  /* ── Debug Checklist ─────────────────────────────── */
+  .debug-checklist {
+    margin: 2rem 0; padding: 1.75rem 2rem;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .debug-checklist h3 {
+    font-family: var(--font-display); font-size: 1.1rem;
+    margin: 0 0 1rem; font-weight: 600; color: var(--amber);
+  }
+  .debug-checklist ul { margin: 0; padding: 0; list-style: none; }
+  .debug-checklist ul li {
+    padding: 0.55rem 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.94rem; color: var(--text-secondary);
+  }
+  .debug-checklist ul li:last-child { border-bottom: none; }
+  .debug-checklist ul li .check {
+    color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 0.1rem;
+  }
+
+  /* ── Platform Table ──────────────────────────────── */
+  .platform-table {
+    width: 100%; margin: 1.5rem 0 2rem;
+    border-collapse: collapse; font-size: 0.9rem;
+    overflow-x: auto; display: block;
+  }
+  .platform-table thead { display: none; }
+  .platform-table tbody { display: block; }
+  .platform-table tr {
+    display: grid; grid-template-columns: 1.2fr 1.5fr 1.5fr 1.8fr;
+    gap: 0; border-bottom: 1px solid var(--border);
+  }
+  .platform-table tr:first-child { border-top: 1px solid var(--border); }
+  .platform-table td {
+    padding: 0.7rem 0.6rem; color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .platform-table td:first-child {
+    font-weight: 600; color: var(--text);
+  }
+  .platform-table td code {
+    font-size: 0.82em; white-space: nowrap;
+  }
+
+  /* ── Tip Box ─────────────────────────────────────── */
+  .tip-box {
+    margin: 2rem 0; padding: 1.5rem 1.75rem;
+    background: rgba(74, 222, 128, 0.04);
+    border: 1px solid rgba(74, 222, 128, 0.15);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+  .tip-box .tip-label {
+    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--green);
+    margin-bottom: 0.5rem;
+  }
+  .tip-box p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0; }
+
+  /* ── Warning Box ─────────────────────────────────── */
+  .warning-box {
+    margin: 2rem 0; padding: 1.5rem 1.75rem;
+    background: rgba(239, 68, 68, 0.04);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-radius: var(--radius-lg);
+  }
+  .warning-box .warning-label {
+    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+  .warning-box p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0; }
+
+  /* ── Related Links Box ───────────────────────────── */
+  .related-box {
+    margin: 3rem 0; padding: 2rem;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .related-box h3 {
+    font-family: var(--font-display); font-size: 1.15rem;
+    margin: 0 0 0.75rem; font-weight: 600;
+  }
+  .related-box p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .related-box .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--green); color: #0C0C0E; padding: 0.65rem 1.4rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: background 0.15s, box-shadow 0.15s;
+  }
+  .related-box .btn:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow-strong); }
+
+  /* ── Footer ──────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
+    text-align: center; color: var(--text-muted); font-size: 0.85rem;
+  }
+  footer a { color: var(--green); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+
+  /* ── Focus ──────────────────────────────────────── */
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 4px; }
+
+  /* ── Responsive ─────────────────────────────────── */
+  @media (max-width: 768px) {
+    .article-header { padding: 3.5rem 1.25rem 2.5rem; }
+    .article-header h1 { font-size: 1.75rem; }
+    .article-body { padding: 0 1.25rem 3rem; }
+    .article-body h2 { font-size: 1.35rem; }
+    .article-body pre { padding: 1rem; font-size: 0.78rem; }
+    .nav-links .hide-mobile { display: none; }
+    .platform-table tr { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.75rem 0; }
+    .platform-table td { padding: 0.2rem 0; }
+    .platform-table td:first-child { font-size: 0.95rem; margin-bottom: 0.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Reading Progress -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/" class="nav-logo">&gt; snapog</a>
+    <div class="nav-links">
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/" class="hide-mobile">Home</a>
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/blog/">Blog</a>
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">Browser Tool</a>
+      <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/" class="nav-cta">Try It Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Article Header -->
+<header class="article-header">
+  <div class="article-eyebrow"><span class="dot"></span> Debugging Guide</div>
+  <h1>OG Image Not Showing? <span class="highlight">How to Fix It</span> (2026 Guide)</h1>
+  <div class="article-meta">
+    <span>July 22, 2026</span>
+    <span class="sep">|</span>
+    <span>8 min read</span>
+    <span class="sep">|</span>
+    <span>SnapOG Team</span>
+  </div>
+</header>
+
+<!-- Article Body -->
+<article class="article-body">
+
+  <p>
+    You added the <code>&lt;meta&gt;</code> tags. You uploaded a PNG. You pasted the link into
+    Slack... and nothing. Just a bare URL. No preview card. No image. No click.
+  </p>
+
+  <p>
+    You are not alone. <strong>OG images failing to appear is the single most common frustration</strong>
+    people have with social link previews. And the worst part? Most debugging guides are useless.
+    They tell you to "check your tags" and call it a day. They do not explain the real reasons
+    OG images break — the aggressive caching, the silent timeouts, the platform-specific quirks
+    that nobody documents.
+  </p>
+
+  <blockquote>
+    <p>"I spent two hours trying to figure out why my OG image wasn't showing on Facebook.
+    Turns out the image was loading in 6.2 seconds and Facebook's scraper gives up at 5.
+    Not a single article mentioned this."</p>
+  </blockquote>
+
+  <p>
+    This guide covers <strong>every real reason</strong> your OG image is not showing, with
+    specific debugging steps, exact commands you can run, and the platform-specific fixes
+    that actually work in 2026. No fluff. No "just use our tool" hand-waving. Real debugging.
+  </p>
+
+  <h2>1. Check Your Meta Tags (30-Second Sanity Check)</h2>
+
+  <p>
+    Before blaming the platforms, confirm your tags are actually correct. Open your page,
+    <strong>View Source</strong> (not DevTools — the DOM can differ from the raw HTML that scrapers read),
+    and verify:
+  </p>
+
+  <div class="debug-checklist">
+    <h3>OG Image Meta Tag Checklist</h3>
+    <ul>
+      <li><span class="check">&check;</span> <code>og:image</code> uses <strong>property=</strong> not <strong>name=</strong> (Open Graph uses the <code>property</code> attribute; <code>name</code> is for Twitter Cards)</li>
+      <li><span class="check">&check;</span> The image URL is <strong>absolute</strong>, not relative (<code>https://yoursite.com/og.png</code>, not <code>/og.png</code>)</li>
+      <li><span class="check">&check;</span> The image URL uses <strong>HTTPS</strong> — Facebook and LinkedIn will not fetch HTTP images</li>
+      <li><span class="check">&check;</span> <code>og:image:width</code> is <strong>1200</strong> and <code>og:image:height</code> is <strong>630</strong> (or at minimum 200x200)</li>
+      <li><span class="check">&check;</span> You have <strong>both</strong> <code>og:image</code> AND <code>twitter:image</code> tags (they are different standards)</li>
+      <li><span class="check">&check;</span> <code>twitter:card</code> is set to <code>summary_large_image</code> (not <code>summary</code>, which shows a tiny thumbnail)</li>
+    </ul>
+  </div>
+
+  <p>
+    Here is the minimal set of tags that covers every platform:
+  </p>
+
+  <pre><code><span class="cmt">&lt;!-- Open Graph (Facebook, LinkedIn, Slack, Discord) --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:title"</span> <span class="attr">content</span>=<span class="val">"Your Page Title"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:description"</span> <span class="attr">content</span>=<span class="val">"A compelling description."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image"</span> <span class="attr">content</span>=<span class="val">"https://yoursite.com/og-image.png"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image:width"</span> <span class="attr">content</span>=<span class="val">"1200"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image:height"</span> <span class="attr">content</span>=<span class="val">"630"</span><span class="tag">&gt;</span>
+
+<span class="cmt">&lt;!-- Twitter Card --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:card"</span> <span class="attr">content</span>=<span class="val">"summary_large_image"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:image"</span> <span class="attr">content</span>=<span class="val">"https://yoursite.com/og-image.png"</span><span class="tag">&gt;</span></code></pre>
+
+  <div class="warning-box">
+    <div class="warning-label">Common Pitfall: og:image vs og:image:url</div>
+    <p><code>og:image</code> and <code>og:image:url</code> are <strong>not the same thing</strong>. <code>og:image:url</code> is an older, deprecated specification that some scrapers (particularly older LinkedIn crawlers) still check first. If you define <em>both</em> and they point to different images, you get unpredictable behavior. <strong>Use only <code>og:image</code></strong>.</p>
+  </div>
+
+  <h2>2. The Cache Trap: Why Your "Fix" Didn't Fix Anything</h2>
+
+  <p>
+    This is the single most common reason people think their OG image is broken when it is not.
+    You fix the tags, you paste the link again... and the old broken preview still shows up.
+    <strong>It is not broken. It is cached.</strong>
+  </p>
+
+  <p>
+    Every major platform scrapes OG data <strong>once</strong> and caches the result aggressively.
+    Your fix is invisible because the platform never re-scraped your page.
+  </p>
+
+  <p>
+    Here are the cache durations and the tools you use to clear them:
+  </p>
+
+  <div style="overflow-x:auto;">
+  <table class="platform-table">
+    <tbody>
+      <tr>
+        <td>Facebook / Instagram</td>
+        <td>~30 days</td>
+        <td><a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener">Sharing Debugger</a></td>
+        <td>Paste URL, click <strong>"Scrape Again"</strong>. Do this <strong>twice</strong> — the first scrape warms the cache, the second confirms the fix.</td>
+      </tr>
+      <tr>
+        <td>Twitter / X</td>
+        <td>~7 days</td>
+        <td><a href="https://cards-dev.twitter.com/validator" target="_blank" rel="noopener">Card Validator</a></td>
+        <td>Paste URL, click "Preview Card". Note: Twitter's validator has been flaky since 2024. If it errors, post the link in a DM to yourself — that forces a scrape.</td>
+      </tr>
+      <tr>
+        <td>LinkedIn</td>
+        <td>~7 days</td>
+        <td><a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener">Post Inspector</a></td>
+        <td>Paste URL, click "Inspect". LinkedIn is the most aggressive cacher — you may need to wait 5 minutes between scrapes.</td>
+      </tr>
+      <tr>
+        <td>Slack</td>
+        <td>~1 hour</td>
+        <td>No public debugger</td>
+        <td>Append <code>?v=2</code> to your URL to force a fresh scrape. Wait 5 minutes between attempts.</td>
+      </tr>
+      <tr>
+        <td>Discord</td>
+        <td>~1 hour</td>
+        <td>No public debugger</td>
+        <td>Same trick: append <code>?v=2</code> to your URL. Discord's scraper respects query strings as unique URLs.</td>
+      </tr>
+      <tr>
+        <td>WhatsApp / iMessage</td>
+        <td>~24-48 hours</td>
+        <td>No debugger</td>
+        <td>The least predictable. Wait it out or use a URL shortener to create a "new" URL.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">Pro Tip: The Query String Trick</div>
+    <p>Appending a query parameter like <code>?v=2</code> or <code>?refresh=1</code> to your URL forces every platform to treat it as a brand new page. This bypasses ALL caches simultaneously. Once the preview works, remove the parameter for normal sharing — or keep it, if your page ignores unknown query params.</p>
+  </div>
+
+  <p>
+    <strong>One more thing about Facebook:</strong> the Sharing Debugger shows you exactly what the scraper sees, including any warnings or errors. It will tell you if your image is too small, too slow to load, or blocked by <code>robots.txt</code>. <strong>Always check the debugger output before assuming your tags are wrong.</strong>
+  </p>
+
+  <h2>3. The 5-Second Rule Nobody Documents</h2>
+
+  <p>
+    Every major platform's scraper has a timeout. If your OG image takes longer than
+    approximately <strong>5 seconds</strong> to load, the scraper silently drops it and moves on.
+    No error message. No warning. Your link just shows up without an image.
+  </p>
+
+  <p>
+    This is not documented anywhere official. But ask anyone who has debugged OG images at scale
+    and they will tell you: slow images are the silent killer.
+  </p>
+
+  <p>
+    <strong>Common causes of slow image loads:</strong>
+  </p>
+
+  <ul>
+    <li><strong>Huge PNG files</strong> — a 2MB OG image on a $5/month shared hosting plan can take 8+ seconds to serve</li>
+    <li><strong>No CDN</strong> — serving images from a single-origin server means Facebook's scraper (which is in California) might be pulling from a server in Frankfurt</li>
+    <li><strong>Cold starts on serverless platforms</strong> — if your image is generated on-the-fly by a Lambda/Worker function, the first request after inactivity can take seconds</li>
+    <li><strong>Redirect chains</strong> — if your image URL goes through 2-3 redirects, each one adds latency</li>
+  </ul>
+
+  <p>
+    <strong>How to test your image load time</strong> from the perspective of a scraper:
+  </p>
+
+  <pre><code><span class="cmt"># Test raw download time (this is what scrapers experience)</span>
+curl -o /dev/null -s -w <span class="val">'Total: %{time_total}s | Size: %{size_download} bytes\n'</span> <span class="val">"https://yoursite.com/og-image.png"</span>
+
+<span class="cmt"># If time_total > 3 seconds, you have a problem.
+# Aim for under 1 second. Under 500ms is ideal.</span></code></pre>
+
+  <p>
+    <strong>Fix it:</strong> compress your PNG (aim for under 200KB), put it behind a CDN (Cloudflare's free tier takes 2 minutes to set up), and enable caching headers so repeat scrapes are instant.
+  </p>
+
+  <div class="tip-box">
+    <div class="tip-label">What SnapOG Does Differently</div>
+    <p>The SnapOG Browser tool generates PNGs that are typically 40-80KB at 1200x630 — small enough to load in under 300ms from any CDN. If you are debugging a slow image, <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">generate a fresh one with SnapOG</a> and replace the old file.</p>
+  </div>
+
+  <h2>4. Platform-by-Platform Debugging Checklist</h2>
+
+  <p>
+    Each platform has its own quirks. Here is what to check for each one, in order of
+    how often they cause problems:
+  </p>
+
+  <h3>Facebook / Instagram</h3>
+
+  <ul>
+    <li><strong>Minimum image size:</strong> 200x200 pixels. Anything smaller is rejected silently.</li>
+    <li><strong>Maximum file size:</strong> 8MB, but anything over 1MB will likely time out (see the 5-second rule above).</li>
+    <li><strong>Supported formats:</strong> PNG, JPEG, GIF (static only). <strong>WebP is NOT fully supported</strong> — Facebook's scraper only began partial WebP support in 2024, and it is still unreliable. Use PNG.</li>
+    <li><strong>Robots.txt check:</strong> Facebook respects <code>robots.txt</code>. If your image is in a directory blocked by robots.txt, the scraper will not fetch it. Test: open the image URL in an incognito window.</li>
+    <li><strong>Debugger URL:</strong> <a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener">developers.facebook.com/tools/debug/</a></li>
+  </ul>
+
+  <h3>Twitter / X</h3>
+
+  <ul>
+    <li><strong>Card type matters:</strong> <code>summary_large_image</code> shows a full-width image. <code>summary</code> shows a tiny square thumbnail. Make sure you are using the right one.</li>
+    <li><strong>Minimum image size for large image card:</strong> 300x157 pixels. Below this, Twitter falls back to a <code>summary</code> card regardless of your tag.</li>
+    <li><strong>Aspect ratio:</strong> 2:1 is ideal (1200x600). Twitter crops differently than Facebook — a 1200x630 image works but will have thin bars on the sides.</li>
+    <li><strong>Validator note:</strong> The Card Validator at cards-dev.twitter.com has been unreliable since 2024. If it shows an error, try posting the link in a DM to yourself — that triggers a live scrape.</li>
+  </ul>
+
+  <h3>LinkedIn</h3>
+
+  <ul>
+    <li><strong>Most aggressive caching:</strong> LinkedIn caches OG data for up to 7 days and the Post Inspector can take 5+ minutes to refresh. Be patient.</li>
+    <li><strong>Image sizing:</strong> LinkedIn displays OG images at 1.91:1 ratio. 1200x627 works slightly better than 1200x630 (LinkedIn has historically cropped the bottom 3 pixels).</li>
+    <li><strong>Post Inspector URL:</strong> <a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener">linkedin.com/post-inspector/</a></li>
+  </ul>
+
+  <h3>Slack</h3>
+
+  <ul>
+    <li><strong>Unfurl requirements:</strong> Slack only unfurls links if your workspace admin has not disabled unfurling and the message is not in a thread where unfurling was collapsed.</li>
+    <li><strong>Cache duration:</strong> ~1 hour. The <code>?v=2</code> query string trick works reliably.</li>
+    <li><strong>Image sizing:</strong> Slack crops OG images to 360x189 in the unfurl preview. Text-heavy images become illegible — keep your OG image text large and centered.</li>
+  </ul>
+
+  <h3>Discord</h3>
+
+  <ul>
+    <li><strong>Cache:</strong> ~1 hour. Same query string trick applies.</li>
+    <li><strong>No debugger:</strong> You test by posting the link in a private server. Discord's embed shows up immediately on first post (no cache on first scrape).</li>
+    <li><strong>Image sizing:</strong> Discord displays a smaller thumbnail than Facebook. Text that is readable on Facebook may be too small on Discord.</li>
+  </ul>
+
+  <h3>WhatsApp / iMessage</h3>
+
+  <ul>
+    <li><strong>Least predictable:</strong> These platforms have opaque caching with no public debuggers. WhatsApp can cache for 48+ hours.</li>
+    <li><strong>Minimum image size:</strong> WhatsApp requires at least 300x300 to show a preview image. Under that, it is text-only.</li>
+    <li><strong>Best workaround:</strong> Use a URL shortener (like bit.ly) to create a "new" URL that has never been scraped. This bypasses the cache.</li>
+  </ul>
+
+  <h2>5. When the Image Itself Is Broken</h2>
+
+  <p>
+    Sometimes the tags are correct, the cache is cleared, the load time is fine... and the image
+    still does not show. The problem is the image file itself. Here is what to check:
+  </p>
+
+  <h3>Wrong Format: The WebP Trap</h3>
+
+  <p>
+    WebP is an excellent format — smaller files, same quality. But <strong>Facebook's scraper
+    did not fully support WebP until mid-2024</strong>, and some platforms (older Slack clients,
+    certain email clients that generate previews) still do not. If your OG image is a WebP file,
+    convert it to PNG and try again. This single change has fixed more "mysterious" OG image
+    failures than any other.
+  </p>
+
+  <h3>Wrong Dimensions</h3>
+
+  <p>
+    The universal standard is <strong>1200x630 pixels</strong> (1.91:1 aspect ratio). But the
+    minimum requirements vary:
+  </p>
+
+  <ul>
+    <li>Facebook: 200x200 minimum, recommends 1200x630</li>
+    <li>Twitter <code>summary_large_image</code>: 300x157 minimum</li>
+    <li>LinkedIn: 1200x627 recommended (matches their exact crop)</li>
+    <li>WhatsApp: 300x300 minimum</li>
+  </ul>
+
+  <p>
+    If your image is below the platform's minimum, it is silently dropped. <strong>Always use
+    1200x630</strong> — it exceeds every platform's minimum and looks good everywhere.
+  </p>
+
+  <h3>Text Too Close to the Edge</h3>
+
+  <p>
+    Platforms crop OG images differently on mobile vs desktop, and some (Slack, Discord) display
+    them at much smaller sizes than Facebook. If your title text extends to within 60 pixels of
+    any edge, it will be cut off on at least one platform. Keep a <strong>60px safe margin</strong>
+    on all sides for critical text.
+  </p>
+
+  <h3>Corrupted or Malformed File</h3>
+
+  <p>
+    Rare but real: a PNG with a corrupted chunk, a JPEG with bad EXIF data, or an image saved with
+    the wrong file extension (a PNG saved as <code>.jpg</code>). Scrapers are less tolerant of
+    malformed files than browsers. If nothing else works, <strong>regenerate the image from
+    scratch</strong>. Sometimes a clean re-encode is the only fix.
+  </p>
+
+  <h2>6. Start Fresh: Generate a Clean OG Image</h2>
+
+  <p>
+    If you have gone through every step above — tags are correct, cache is cleared, load time
+    is under a second, format is PNG, dimensions are 1200x630 — and your OG image still will
+    not show, the simplest fix is to generate a brand new image.
+  </p>
+
+  <p>
+    A clean file eliminates every invisible variable: encoding issues, metadata corruption,
+    progressive vs baseline JPEG quirks, ICC color profiles that confuse scrapers.
+    You could spend another hour debugging the file, or you could spend 30 seconds
+    generating a fresh one.
+  </p>
+
+  <div class="related-box">
+    <h3>Generate a fresh, properly-sized OG image in 30 seconds</h3>
+    <p>SnapOG Browser creates optimized 1200x630 PNGs (typically 40-80KB) with correct dimensions, centered text, and no metadata cruft. Everything runs in your browser — no upload, no signup, no API key.</p>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/" class="btn">Open SnapOG Browser &rarr;</a>
+  </div>
+
+  <p>
+    Once you have your new image, upload it, update your <code>og:image</code> tag, run
+    the Facebook Sharing Debugger twice, and test on the platforms where your audience
+    actually shares links. Nine times out of ten, a fresh image solves what debugging
+    could not.
+  </p>
+
+  <p>
+    And if you want to go deeper, here are the tools referenced in this guide:
+  </p>
+
+  <ul>
+    <li><a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener">Facebook Sharing Debugger</a> — the most important tool. Always check here first.</li>
+    <li><a href="https://cards-dev.twitter.com/validator" target="_blank" rel="noopener">Twitter Card Validator</a> — flaky since 2024, but still useful when it works.</li>
+    <li><a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener">LinkedIn Post Inspector</a> — essential for LinkedIn-specific debugging.</li>
+    <li><a href="https://www.opengraph.xyz" target="_blank" rel="noopener">opengraph.xyz</a> — shows previews for multiple platforms simultaneously. Good for a quick sanity check.</li>
+    <li><a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">SnapOG Browser</a> — free OG image generator that produces clean, optimized PNGs.</li>
+  </ul>
+
+</article>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/">Home</a>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/">Browser Tool</a>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/blog/">Blog</a>
+    <a href="https://github.com/kaleemibnanwar" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p>SnapOG &copy; 2026 — Free OG Image Generator. Built with HTML5 Canvas + GitHub Pages.</p>
+</footer>
+
+<!-- Reading Progress Script -->
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = progress + '%';
+  });
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://snapog.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

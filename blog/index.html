@@ -278,6 +278,31 @@
   }
   .related-box .btn:hover { background: #6EE7A0; box-shadow: 0 0 20px var(--green-glow-strong); }
 
+  /* ── More Articles ───────────────────────────────── */
+  .more-articles {
+    margin: 3rem 0; padding: 2rem;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .more-articles h3 {
+    font-family: var(--font-display); font-size: 1rem;
+    margin: 0 0 1rem; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .more-articles .post-link {
+    display: block; padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--text); transition: color 0.15s;
+  }
+  .more-articles .post-link:last-child { border-bottom: none; }
+  .more-articles .post-link:hover { color: var(--green); }
+  .more-articles .post-link .post-title {
+    font-weight: 600; font-size: 1.05rem; margin-bottom: 0.2rem;
+  }
+  .more-articles .post-link .post-meta {
+    font-size: 0.82rem; color: var(--text-muted);
+  }
+
   /* ── Footer ──────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
@@ -541,6 +566,14 @@
     <h3>Ready to create your first OG image?</h3>
     <p>Open the browser tool, type your title, and download a professional OG image in under 30 seconds. No signup. No API key. No cost.</p>
     <a href="https://kaleemibnanwar.github.io/snapog-pages/browser/" class="btn">Open SnapOG Browser &rarr;</a>
+  </div>
+
+  <div class="more-articles">
+    <h3>More from the SnapOG Blog</h3>
+    <a href="https://kaleemibnanwar.github.io/snapog-pages/blog/og-image-not-showing/" class="post-link">
+      <div class="post-title">OG Image Not Showing? How to Fix It (2026 Debugging Guide)</div>
+      <div class="post-meta">Debugging Guide &middot; 8 min read</div>
+    </a>
   </div>
 
 </article>
